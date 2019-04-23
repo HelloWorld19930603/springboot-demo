@@ -7,6 +7,8 @@
         <id column="visitor_pin" property="visitorPin" />
         <result column="visitor_mobile" property="visitorMobile" />
         <result column="visitor_company" property="visitorCompany" />
+        <result column="visitor_name" property="visitorName" />
+        <result column="visitor_plate" property="visitorPlate" />
         <result column="name" property="name" />
         <result column="pin" property="pin" />
         <result column="visitor_statu" property="visitorStatu" />

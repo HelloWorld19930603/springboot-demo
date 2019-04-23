@@ -6,7 +6,11 @@
     SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     String now = df.format(d);
 %>
-
+<style>
+    p{
+        font-size: 18px;
+    }
+</style>
 
 <link href="/static/css/animate.min.css" rel="stylesheet">
 <div class="left-side sticky-left-side">
@@ -26,29 +30,16 @@
         <!--sidebar nav start-->
         <ul class="nav nav-pills nav-stacked custom-nav">
 
-            <div class="panel">
+            <div class="panel" style="background-color: #424f63">
                 <div class="panel-body">
-                    <ul class="p-info">
-                        <li>
-                            <div class="title">Gender</div>
-                            <div class="desk">Male</div>
-                        </li>
-                        <li>
-                            <div class="title">Founder</div>
-                            <div class="desk">ABC Inc.</div>
-                        </li>
-                        <li>
-                            <div class="title">Education</div>
-                            <div class="desk">BSC. in CSE</div>
-                        </li>
-                        <li>
-                            <div class="title">Project Done</div>
-                            <div class="desk">50+</div>
-                        </li>
-                        <li>
-                            <div class="title">Skills</div>
-                            <div class="desk">HTML, CSS, JavaScript.</div>
-                        </li>
+                    <ul class="nav nav-pills nav-stacked labels-info ">
+                        <li> <h5>园区总人数：<span id="total">123</span></h5> </li>
+                        <li> <a href="#"> <i class="fa fa-male text-success"></i> vip <p style="font-size: 18px;">32</p></a>  </li>
+                        <li> <a href="#"> <i class="fa fa-male text-info"></i> 内部员工 <p style="font-size: 18px;">49</p></a> </li>
+                        <li> <a href="#"> <i class="fa fa-male text-primary"></i> TK内部访客 <p style="font-size: 18px;">25</p></a> </li>
+                        <li> <a href="#"> <i class="fa fa-male text-area"></i> 供应商 <p style="font-size: 18px;">17</p ></a> </li>
+                        <li> <a href="#"> <i class="fa fa-male text-muted "></i> TK临时访客 <p style="font-size: 18px;">16</p></a></li>
+                        <li> <a href="#"> <i class="fa fa-male text-danger "></i> 异常人员 <p style="font-size: 18px;">9</p></a>  </li>
                     </ul>
                 </div>
             </div>
