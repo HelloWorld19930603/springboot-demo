@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.AcclogViewMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.example.demo.entity.AcclogView">
+        <id column="pin" property="pin" />
+        <result column="name" property="name" />
+        <result column="mobile" property="mobile" />
+        <result column="deptname" property="deptname" />
+        <result column="reader_name" property="readerName" />
+        <result column="device_name" property="deviceName" />
+        <result column="sn" property="sn" />
+        <result column="time" property="time" />
+        <result column="event_type" property="eventType" />
+    </resultMap>
+
+</mapper>

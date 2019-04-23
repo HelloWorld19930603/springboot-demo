@@ -10,7 +10,7 @@ Author: ThemeBucket
 @import url('../fonts/css/font-awesome.min.css');
 
 body {
-    background: #eff0f4;
+    background: #424f63;
     font-family: 'Open Sans', sans-serif;
     color: #7a7676;
     line-height: 20px;
@@ -21,8 +21,6 @@ body {
 input, select, textarea {
     font-family: 'Open Sans', sans-serif;
     color: #767676;
-    outline: none;
-
 
 }
 
@@ -883,7 +881,7 @@ h5.left-nav-title {
 }
 
 .sticky-header .main-content {
-    padding-top: 0px;
+    padding-top: 50px;
 }
 
 .sticky-header .menu-right {
@@ -920,9 +918,9 @@ h5.left-nav-title {
 ------------------------------*/
 
 .main-content {
-    margin: auto;
+    margin-left: 240px;
     background: #eff0f4;
-    //min-height: 1000px;
+    min-height: 1000px;
 }
 
 .page-heading {
@@ -948,7 +946,7 @@ h5.left-nav-title {
 }
 
 .page-heading .breadcrumb li.active {
-    color: #49586e;
+    color: #ef579d;
 }
 
 .wrapper {
@@ -2625,7 +2623,7 @@ input:focus:invalid:focus, textarea:focus:invalid:focus, select:focus:invalid:fo
 
 .widget-container .stepy-tab ul li.current-step, .block-tabby ul li.current-step{
     border:none ;
-    background: #7992a0!important;
+    background: #ef579d!important;
     color: #fff;
 }
 
