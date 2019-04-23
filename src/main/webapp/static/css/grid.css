@@ -1,0 +1,60 @@
+.plugin-action{
+    display: inline-block;
+    color: steelblue;
+    margin-right: 10px;
+    cursor: pointer;
+    text-decoration: none;
+}
+.plugin-action:hover{
+    text-decoration: underline;
+}
+.search-area{
+    padding: 12px 20px;
+    background-color: #fff;
+    margin-bottom: 16px;
+    border-radius: 4px;
+}
+.search-area .sa-ele{
+    display: inline-block;
+    margin-right: 20px;
+    font-size: 12px;
+}
+.search-area .sa-ele .se-title{
+    display: inline-block;
+    margin-right: 10px;
+}
+.search-area .sa-ele .se-con{
+    display: inline-block;
+    width:180px;
+    height: 24px;
+    border: 1px solid #ccc;
+    padding: 0 4px;
+    line-height: 24px;
+    border-radius: 4px;
+}
+.search-area .sa-ele .search-action, .search-area .sa-ele .reset-action{
+    display: inline-block;
+    width:80px;
+    height: 26px;
+    border: 1px solid #ccc;
+    background: #e8e8e8;
+    padding: 0 4px;
+    line-height: 26px;
+    text-align: center;
+    cursor: pointer;
+    margin-right: 10px;
+    border-radius: 4px;
+}
+
+.bottom-bar button{
+    padding: 5px 20px;
+    margin-right: 10px;
+}
+.bottom-bar a{
+    font-size: 12px;
+    margin-right: 10px;
+}
+
+table{
+    border-radius: 4px;
+}
