@@ -254,7 +254,7 @@
             // ajax_url 将在v2.6.0以上版本废弃，请不要再使用
             // ,ajax_url: 'http://www.lovejavascript.com/blogManager/getBlogList'
             ,ajax_data: function () {
-                return '<%=context%>/genergy/getCustomerPage';
+                return '/list';
             }
             // ,firstLoading: false // 初始渲染时是否加载数据
             ,ajax_type: 'POST'
@@ -287,114 +287,90 @@
             }
             ,columnData: [
                 {
-                    key: 'id',
+                    key: 'visitorPin',
                     remind: 'the pic',
                     text: '编号',
                     isShow: false
                 },
                 {
-                    key: 'name',
+                    key: 'visitorName',
                     remind: 'the pic',
                     width: '60px',
                     align: 'center',
-                    text: '客户名称',
+                    text: '访客名称',
                     // 使用函数返回 dom node
-                    template: function(name, rowObject) {
+                    template: function(visitorName, rowObject) {
 
-                        return "<a href='getOrders?customerName="+name+"'>"+name+"</>";
+                        return visitorName;
                     }
                 },{
-                    key: 'phone',
+                    key: 'visitorMobile',
                     remind: 'the title',
                     align: 'center',
                     width: '60px',
-                    text: '联系方式',
+                    text: '访客联系方式',
                     sorting: '',
                     // 使用函数返回 dom node
-                    template: function(phone, rowObject) {
+                    template: function(visitorMobile, rowObject) {
 
-                        return phone;
+                        return visitorMobile;
                     }
                 }, {
-                    key: 'address',
+                    key: 'visitorCompany',
                     remind: 'the pic',
                     width: '100px',
                     align: 'center',
-                    text: '地址',
+                    text: '访客公司',
                     // 使用函数返回 dom node
-                    template: function(address, rowObject) {
+                    template: function(visitorCompany, rowObject) {
 
-                        return address;
+                        return visitorCompany;
+                    }
+                }, {
+                    key: 'visitorPlate',
+                    remind: 'the pic',
+                    width: '100px',
+                    align: 'center',
+                    text: '访客车牌号',
+                    // 使用函数返回 dom node
+                    template: function(visitorPlate, rowObject) {
+
+                        return visitorPlate;
                     }
                 },{
-                    key: 'time',
+                    key: 'inTime',
                     remind: 'the title',
                     align: 'center',
                     width: '120px',
-                    text: '创建时间',
+                    text: '进入时间',
                     sorting: '',
                     // 使用函数返回 dom node
-                    template: function(time, rowObject) {
+                    template: function(inTime, rowObject) {
 
-                        return time;
+                        return inTime;
+                    }
+                },{
+                    key: 'outTime',
+                    remind: 'the title',
+                    align: 'center',
+                    width: '120px',
+                    text: '离开时间',
+                    sorting: '',
+                    // 使用函数返回 dom node
+                    template: function(outTime, rowObject) {
+
+                        return outTime;
                     }
                 }, {
-                    key: 'remark',
+                    key: 'visitorType',
                     remind: 'the pic',
                     width: '100px',
                     align: 'center',
-                    text: '备注',
+                    text: '访客类型',
                     // 使用函数返回 dom node
-                    template: function(remark, rowObject) {
+                    template: function(visitorType, rowObject) {
 
-                        return remark;
-                    }
-                },{
-                    key: 'status',
-                    remind: 'the type',
-                    text: '状态',
-                    width: '80px',
-                    align: 'center',
-                    template: function(status, rowObject){
-                        if(status == 0){
-                            return "建立关系";
-                        }else if(status == 1){
-                            return "签订合同";
-                        }else if(status == 2){
-                            return "收取货款";
-                        }else if(status == 2){
-                            return "回访";
-                        }
-                    }
-                },{
-                    key: 'userName',
-                    remind: 'the type',
-                    text: '业务员',
-                    width: '80px',
-                    align: 'center',
-                    template: function(userName, rowObject){
-                        return userName;
-                    }
-                },{
-                    key: 'visit',
-                    remind: 'the type',
-                    text: '拜访次数',
-                    width: '40px',
-                    align: 'center',
-                    template: function(visit, rowObject){
-                        return visit;
-                    }
-                },{
-                    key: 'action',
-                    remind: 'the action',
-                    width: '140px',
-                    align: 'center',
-                    text: '<span style="color: red">操作</span>',
-                    // 直接返回 htmlString
-                    template: function (action,rowObjct) {
-                        var htmlString = '<span class="plugin-action" gm-click="editRowData">访问时间统计</span>'
-
-                        return htmlString;
+                        return visitorType;
                     }
                 }
             ]
@@ -409,9 +385,6 @@
     }
 
 
-    function editRowData(rowData){
-        window.location.href = "<%=context%>/genergy/statistics?customerName="+rowData.name;
-    }
 
     (function(){
         init();

@@ -23,7 +23,7 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 }
 
-/* Page Loader */
+/* PageUtil Loader */
 .js .loading::before {
 	content: '';
 	position: fixed;

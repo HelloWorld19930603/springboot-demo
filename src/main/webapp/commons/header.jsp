@@ -14,7 +14,7 @@
         <ul class="notification-menu">
             <li>
                 <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                    <img src="<%=path%>/images/photos/user.jpg" alt="" />
+                    <img src="#" alt="" />
                     欢迎您，管理员${user.name}
                     <span class="caret"></span>
                 </a>
@@ -29,7 +29,7 @@
     <!-- visible to small devices only -->
     <div class="visible-xs hidden-sm hidden-md hidden-lg">
         <div class="media logged-user">
-            <img alt="" src="<%=path%>/images/photos/user.jpg" class="media-object">
+            <img alt="" src="#" class="media-object">
             <div class="media-body">
                 <h4><a href="#">欢迎您，管理员${user.name}</a></h4>
                 <span></span>
