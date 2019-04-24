@@ -388,8 +388,54 @@
 
     (function(){
         init();
+        var current = new Date(new Date().getTime() - 2 * 3600000 );
+        var time = current.getHours() * 3600000 + current.getMinutes() * 60000 + current.getSeconds() * 1000;
+        var start = current.getTime() - time + 2 * 3600000;
+        $.ajax({
+                url: "/count?startTime="+dateFtt("yyyy-MM-dd hh:mm:ss", new Date(start)),
+                type: "get",
+                success: function (data) {
+                    $("#p1").text(data.num4);
+                    $("#p2").text(data.num1);
+                    $("#p3").text(data.num2);
+                    $("#p4").text(data.num5);
+                    $("#p5").text(data.num6);
+                    $("#p6").text(data.num3);
+                    $("#total").text(data.all);
+                },
+                error: function (data) {
+
+                    console.log("count请求异常");
+                }
+            });
     })();
 
+    $("#share").click(function () {
+        swal({
+            title: '确认导出访客数据吗？',
+            showCancelButton: true,
+            animation: "slide-from-top",
+            confirmButtonText: '确认',
+            cancelButtonText: '取消',
+            preConfirm: function (result) {
+                return new Promise(function (resolve) {
+                    if (result) {
+                        resolve([
+                        ]);
+                    }
+                });
+            }
+        }).then(function (result) {
+            if (result) {
+                var current = new Date(new Date().getTime() - 2 * 3600000 );
+                var time = current.getHours() * 3600000 + current.getMinutes() * 60000 + current.getSeconds() * 1000;
+                var start = current.getTime() - time + 2 * 3600000;
+                var end = current.getTime() - time + 26 * 3600000;;
+                window.location.href = "/exportVisitor?startDate=" + dateFtt("yyyy-MM-dd hh:mm:ss", new Date(start)) + "&endDate=" + dateFtt("yyyy-MM-dd hh:mm:ss", new Date(end));
+            }
+        })
+
+    })
 
 
 </script>

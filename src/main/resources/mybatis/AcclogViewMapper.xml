@@ -15,4 +15,26 @@
         <result column="event_type" property="eventType" />
     </resultMap>
 
+
+    <select id="selectAccCount" parameterType="map" resultType="map">
+
+(select (case deptname when 'TK内部' THEN 1 else 0 END) deptname,(count(CASE
+	WHEN reader_name='TKI' THEN 1
+END
+)-count(CASE
+	WHEN reader_name='TKO' THEN 1
+
+END
+))n from acclog_view  where time &gt;= #{startTime}  GROUP BY pin,deptname having (count(CASE
+	WHEN reader_name='TKI' THEN 1
+
+END
+)-count(CASE
+	WHEN reader_name='TKO' THEN 1
+
+END
+)) != 0)
+
+    </select>
+
 </mapper>

@@ -1,0 +1,38 @@
+spring:
+  mvc:
+    view:
+      prefix: /views/
+      suffix: .jsp
+  datasource:
+    url: jdbc:sqlserver://localhost:1433;DatabaseName=xingda
+    username: sa
+    password: qq123!!
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+
+server:
+  port: 8086
+mybatis-plus:
+  mapper-locations: classpath*:mybatis/*.xml
+  global-config:
+    db-config:
+      field-strategy: not_empty
+      id-type: auto
+      db-type: sql_server
+    banner: false
+  aop:
+    auto: true
+    proxy-target-class: true
+  #    健康检查错误详细信息显示
+  management:
+    endpoint:
+      health:
+        show-details: always
+      redis:
+        enabled: false
+        web:
+          exposure:
+            include: "*"

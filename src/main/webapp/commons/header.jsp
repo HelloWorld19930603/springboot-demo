@@ -18,10 +18,10 @@
                     欢迎您，管理员${user.name}
                     <span class="caret"></span>
                 </a>
-                <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
+<%--                <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
                     <li onclick="modifyPassword()"><a href="#"><i class="fa fa-cog"></i>  修改密码</a></li>
                     <li><a href="loginout.do"><i class="fa fa-sign-out"></i> 注销</a></li>
-                </ul>
+                </ul>--%>
             </li>
         </ul>
     </div>
@@ -36,11 +36,11 @@
             </div>
         </div>
 
-        <h5 class="left-nav-title"></h5>
+<%--        <h5 class="left-nav-title"></h5>
         <ul class="nav nav-pills nav-stacked custom-nav">
             <li onclick="modifyPassword()"><a href="#" ><i class="fa fa-cog"></i>  修改密码</a></li>
             <li><a href="loginout.do"><i class="fa fa-sign-out"></i> 注销</a></li>
-        </ul>
+        </ul>--%>
     </div>
 </div>
 <script language="javascript">

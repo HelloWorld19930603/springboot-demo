@@ -25,11 +25,11 @@ public class VisitorlogView extends Model<VisitorlogView> {
     @TableId
     private String visitorPin;
 
+    private String visitorName;
+
     private String visitorMobile;
 
     private String visitorCompany;
-
-    private String visitorName;
 
     private String visitorPlate;
 
