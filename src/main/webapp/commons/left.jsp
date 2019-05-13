@@ -1,10 +1,21 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.util.Date" %>
+<%@ page import="java.util.Calendar" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%
     Date d = new Date();
-    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    String now = df.format(d);
+    SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM-dd");
+    SimpleDateFormat df2 = new SimpleDateFormat("HH:mm:ss");
+    String now1 = df1.format(d);
+    String now2 =df2.format(d);
+
+    String[] weekDays = { "星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六" };
+    Calendar cal = Calendar.getInstance();
+    cal.setTime(d);
+    int w = cal.get(Calendar.DAY_OF_WEEK) - 1;
+    if (w < 0)
+        w = 0;
+    String week = weekDays[w];
 %>
 <style>
     p{
@@ -17,7 +28,7 @@
 
     <!--logo and iconic logo start-->
     <div class="logo">
-        <a href="index"><div class="dv"><%=now %></div></a>
+        <a href="index"><div class="dv"><%=now1 %></div><div style="font-size: 21px;">&nbsp;&nbsp;<%=week %>&nbsp;&nbsp;&nbsp;&nbsp;<span id="time"><%=now2 %></span> </div></a>
     </div>
 
     <div class="logo-icon text-center">

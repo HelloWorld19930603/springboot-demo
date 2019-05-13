@@ -438,4 +438,11 @@
     })
 
 
+        $(function () {
+            var t2 = window.setInterval(function() {
+
+                $("#time").text(dateFtt("hh:mm:ss",new Date()))
+
+            },1000)
+        })
 </script>
