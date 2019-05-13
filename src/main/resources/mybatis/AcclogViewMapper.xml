@@ -18,22 +18,33 @@
 
     <select id="selectAccCount" parameterType="map" resultType="map">
 
-(select (case deptname when 'TK内部' THEN 1 else 0 END) deptname,(count(CASE
-	WHEN reader_name='TKI' THEN 1
+select (
+case when deptname = '分包方-保安'
+or deptname = 'test'
+or deptname = 'Yangjiang Office'
+or deptname = '调试临时卡组'
+or deptname = '分包方-保安'
+or deptname = '分包方-饭堂'
+or deptname = '分包方-清洁'
+or deptname = '省装'
+or deptname = '试验塔'
+THEN 1 else 0 END) deptname,(count(CASE
+	WHEN reader_name like 'TKI%' THEN 1
 END
 )-count(CASE
-	WHEN reader_name='TKO' THEN 1
-
+	WHEN reader_name like 'TKO%' THEN 1
 END
-))n from acclog_view  where time &gt;= #{startTime}  GROUP BY pin,deptname having (count(CASE
-	WHEN reader_name='TKI' THEN 1
-
+))n from acclog_view  where 1=1
+        <if test="startTime != null and startTime != ''">
+            and time &gt;= #{startTime}
+        </if>
+          GROUP BY pin,deptname having (count(CASE
+	WHEN reader_name like 'TKI%' THEN 1
 END
 )-count(CASE
-	WHEN reader_name='TKO' THEN 1
-
+	WHEN reader_name like 'TKO%' THEN 1
 END
-)) != 0)
+)) != 0
 
     </select>
 

@@ -36,12 +36,16 @@
 
 
     <select id="selectMap" parameterType="map" resultMap="BaseMap">
-        select * from visitorlog_view where in_time &lt;= #{startTime}
-
+        select * from visitorlog_view where 1=1
+        <if test="startTime != null and startTime != ''">
+            and in_time &gt;= #{startTime}
+        </if>
     </select>
 
     <select id="selectVisitorCount" parameterType="map" resultType="map">
-        select * from visitorlog_view where in_time &lt;= #{startTime}
-
+        select * from visitorlog_view where 1=1
+        <if test="startTime != null and startTime != ''">
+            and in_time &gt;= #{startTime}
+        </if>
     </select>
 </mapper>

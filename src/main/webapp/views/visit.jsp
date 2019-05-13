@@ -301,7 +301,7 @@
                     // 使用函数返回 dom node
                     template: function(visitorName, rowObject) {
 
-                        return visitorName;
+                        return visitorName=='NULL'?"":visitorName;
                     }
                 },{
                     key: 'visitorMobile',
@@ -313,7 +313,7 @@
                     // 使用函数返回 dom node
                     template: function(visitorMobile, rowObject) {
 
-                        return visitorMobile;
+                        return visitorMobile=='NULL'?"":visitorMobile;
                     }
                 }, {
                     key: 'visitorCompany',
@@ -324,7 +324,7 @@
                     // 使用函数返回 dom node
                     template: function(visitorCompany, rowObject) {
 
-                        return visitorCompany;
+                        return visitorCompany=='NULL'?"":visitorCompany;
                     }
                 }, {
                     key: 'visitorPlate',
@@ -335,7 +335,7 @@
                     // 使用函数返回 dom node
                     template: function(visitorPlate, rowObject) {
 
-                        return visitorPlate;
+                        return visitorPlate=='NULL'?"":visitorPlate;
                     }
                 },{
                     key: 'inTime',
@@ -347,7 +347,7 @@
                     // 使用函数返回 dom node
                     template: function(inTime, rowObject) {
 
-                        return inTime;
+                        return inTime=='NULL'?"":inTime;
                     }
                 },{
                     key: 'outTime',
@@ -359,7 +359,7 @@
                     // 使用函数返回 dom node
                     template: function(outTime, rowObject) {
 
-                        return outTime;
+                        return outTime=='NULL'?"":outTime;
                     }
                 }, {
                     key: 'visitorType',
@@ -370,7 +370,7 @@
                     // 使用函数返回 dom node
                     template: function(visitorType, rowObject) {
 
-                        return visitorType;
+                        return visitorType=='NULL'?"":visitorType;
                     }
                 }
             ]
@@ -412,7 +412,7 @@
 
     $("#share").click(function () {
         swal({
-            title: '确认导出访客数据吗？',
+            title: '确认导出今天访客数据吗？',
             showCancelButton: true,
             animation: "slide-from-top",
             confirmButtonText: '确认',

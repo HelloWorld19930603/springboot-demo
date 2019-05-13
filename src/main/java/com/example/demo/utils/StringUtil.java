@@ -51,4 +51,14 @@ public class StringUtil {
     public static String toString(Object obj) {
         return obj == null?"":obj.toString();
     }
+
+    public static boolean isEqual(Object v1,String v2){
+        if(v1 == v2){
+            return true;
+        }else if (v1 == null || v2 == null){
+            return false;
+        }else{
+            return v1.equals(v2);
+        }
+    }
 }

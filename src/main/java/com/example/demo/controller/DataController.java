@@ -8,6 +8,7 @@ import com.example.demo.service.VisitorlogViewService;
 
 import com.example.demo.utils.PageUtil;
 import com.example.demo.utils.ResultJson;
+import com.example.demo.utils.StringUtil;
 import com.example.demo.utils.WriteExcel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -50,7 +51,7 @@ public class DataController {
 
     @RequestMapping("count")
     @ResponseBody
-    public Map count( String startTime){
+    public Map count(String startTime){
         Map map = new HashMap();
         map.put("startTime",startTime);
         List<Map<String,Object>> accMap = acclogViewService.selectAccCount(map);
@@ -64,18 +65,18 @@ public class DataController {
         for(Map m1 : accMap){
             if(m1.get("deptname").equals(0) && m1.get("n").equals(1)){
                 map.put("num1",(int)map.get("num1") +1 );
-            }else if(m1.get("deptname").equals(2)){
+            }else if(m1.get("deptname").equals(1) && m1.get("n").equals(1)){
                 map.put("num2",(int)map.get("num2") +1 );
-            }else{
+            }else if(!m1.get("n").equals(1)|| !m1.get("n").equals(0)){
                 map.put("num3",(int)map.get("num3") +1 );
             }
         }
         for(Map m2 : visitorMap){
-            if(m2.get("visitor_type").equals("vip")){
+            if(StringUtil.isEqual(m2.get("visitor_type"),"vip")){
                 map.put("num4",(int)map.get("num4") +1 );
-            }else if(m2.get("visitor_type").equals("供应商")){
+            }else if(StringUtil.isEqual(m2.get("visitor_type"),"供应商")){
                 map.put("num5",(int)map.get("num5") +1 );
-            }else if(m2.get("visitor_type").equals("TK临时")){
+            }else if(StringUtil.isEqual(m2.get("visitor_type"),"TK临时")){
                 map.put("num6",(int)map.get("num6") +1 );
             }
         }
@@ -105,7 +106,7 @@ public class DataController {
             resp.setContentType("application/vnd.ms-excel;charset=utf-8");
             resp.setHeader("Content-disposition", "attachment; filename=" + processFileName(req, "访客" + startDate + "_" + endDate + ".xls"));
             SimpleDateFormat sDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            List<Map<String, Object>> list = visitorlogViewService.selectMap(sDateFormat.parse(startDate));
+            List<Map<String, Object>> list = visitorlogViewService.selectMap(startDate!=null?sDateFormat.parse(startDate):null);
             WriteExcel.writeExcel(list, dic, out);
         } catch (Exception e) {
             e.printStackTrace();
