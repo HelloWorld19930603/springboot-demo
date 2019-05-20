@@ -37,9 +37,10 @@
 
     <select id="selectMap" parameterType="map" resultMap="BaseMap">
         select * from visitorlog_view where 1=1
-        <if test="startTime != null and startTime != ''">
+        <if test="startTime != null ">
             and in_time &gt;= #{startTime}
         </if>
+        order by in_time desc
     </select>
 
     <select id="selectVisitorCount" parameterType="map" resultType="map">

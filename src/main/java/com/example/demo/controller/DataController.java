@@ -56,28 +56,30 @@ public class DataController {
         map.put("startTime",startTime);
         List<Map<String,Object>> accMap = acclogViewService.selectAccCount(map);
         List<Map<String,Object>> visitorMap = visitorlogViewService.selectVisitorCount(map);
-        map.put("num1",0);
-        map.put("num2",0);
-        map.put("num3",0);
-        map.put("num4",0);
-        map.put("num5",0);
-        map.put("num6",0);
+        map.put("num1",0);//内部员工
+        map.put("num2",0);//TK分公司人员
+        map.put("num3",0);//异常人员
+        map.put("num4",0); //客户
+        map.put("num5",0);//供应商
+        map.put("num6",0);//临时来访
         for(Map m1 : accMap){
             if(m1.get("deptname").equals(0) && m1.get("n").equals(1)){
                 map.put("num1",(int)map.get("num1") +1 );
             }else if(m1.get("deptname").equals(1) && m1.get("n").equals(1)){
-                map.put("num2",(int)map.get("num2") +1 );
+                map.put("num5",(int)map.get("num5") +1 );
             }else if(!m1.get("n").equals(1)|| !m1.get("n").equals(0)){
                 map.put("num3",(int)map.get("num3") +1 );
             }
         }
         for(Map m2 : visitorMap){
-            if(StringUtil.isEqual(m2.get("visitor_type"),"vip")){
+            if(StringUtil.isEqual(m2.get("visitor_type"),"客户")){
                 map.put("num4",(int)map.get("num4") +1 );
             }else if(StringUtil.isEqual(m2.get("visitor_type"),"供应商")){
                 map.put("num5",(int)map.get("num5") +1 );
-            }else if(StringUtil.isEqual(m2.get("visitor_type"),"TK临时")){
+            }else if(StringUtil.isEqual(m2.get("visitor_type"),"访客")){
                 map.put("num6",(int)map.get("num6") +1 );
+            }else if(StringUtil.isEqual(m2.get("visitor_type"),"内部人员(分公司)")){
+                map.put("num2",(int)map.get("num2") +1 );
             }
         }
         int all = (int)map.get("num1")+(int)map.get("num2")+(int)map.get("num3")+(int)map.get("num4")+(int)map.get("num5")+(int)map.get("num6");
@@ -90,14 +92,14 @@ public class DataController {
     public void exportVisitor(HttpServletRequest req, HttpServletResponse resp, String startDate, String endDate) {
         try {
             Map<String, String> dic = new HashMap();
-            dic.put("visitorPin", "访客编号");
+           // dic.put("visitorPin", "访客编号");
             dic.put("visitorName", "访客名字");
             dic.put("visitorMobile", "访客联系方式");
             dic.put("visitorCompany", "访客公司");
             dic.put("visitorPlate", "访客车牌号");
             dic.put("name", "被访人姓名");
-            dic.put("pin", "被访人编号");
-            dic.put("visitorStatu", "访客状态");
+           // dic.put("pin", "被访人编号");
+           // dic.put("visitorStatu", "访客状态");
             dic.put("inAddress", "访客地址");
             dic.put("inTime", "进入时间");
             dic.put("outTime", "离开时间");

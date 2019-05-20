@@ -347,7 +347,7 @@
                     // 使用函数返回 dom node
                     template: function(inTime, rowObject) {
 
-                        return inTime=='NULL'?"":inTime;
+                        return inTime=='NULL'?"":inTime.replace("T"," ");
                     }
                 },{
                     key: 'outTime',
@@ -359,7 +359,7 @@
                     // 使用函数返回 dom node
                     template: function(outTime, rowObject) {
 
-                        return outTime=='NULL'?"":outTime;
+                        return outTime=='NULL'?"":outTime.replace("T"," ");
                     }
                 }, {
                     key: 'visitorType',

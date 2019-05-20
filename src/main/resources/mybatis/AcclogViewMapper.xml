@@ -34,7 +34,7 @@ END
 )-count(CASE
 	WHEN reader_name like 'TKO%' THEN 1
 END
-))n from acclog_view  where 1=1
+))n from acclog_view  where 1=1  and deptname not in ('省装','试验塔','调试临时卡组', 'Yangjiang Office','test')
         <if test="startTime != null and startTime != ''">
             and time &gt;= #{startTime}
         </if>
