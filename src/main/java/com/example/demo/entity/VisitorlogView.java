@@ -18,7 +18,7 @@ import java.io.Serializable;
  */
 @Data
 @TableName("visitorlog_view")
-public class VisitorlogView extends Model<VisitorlogView> {
+public class VisitorlogView{
 
     private static final long serialVersionUID = 1L;
 
@@ -41,9 +41,9 @@ public class VisitorlogView extends Model<VisitorlogView> {
 
     private String inAddress;
 
-    private LocalDateTime inTime;
+    private String inTime;
 
-    private LocalDateTime outTime;
+    private String outTime;
 
     private String visitorType;
 

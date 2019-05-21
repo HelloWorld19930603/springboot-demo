@@ -17,7 +17,9 @@ import java.util.Map;
  */
 public interface VisitorlogViewMapper extends BaseMapper<VisitorlogView> {
 
-    public List<Map<String,Object>> selectMap(Map map);
+     List<Map<String,Object>> selectMap(Map map);
 
-    public List<Map<String,Object>> selectVisitorCount(Map map);
+     List<Map<String,Object>> selectVisitorCount(Map map);
+
+    int count(Map map);
 }

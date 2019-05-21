@@ -37,7 +37,7 @@ public class AcclogView extends Model<AcclogView> {
 
     private String sn;
 
-    private LocalDateTime time;
+    private String time;
 
     private String eventType;
 

@@ -1,13 +1,14 @@
 package com.example.demo.controller;
 
-import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.example.demo.entity.AcclogView;
+import com.example.demo.entity.VisitorlogView;
 import com.example.demo.service.AcclogViewService;
 import com.example.demo.service.VisitorlogViewService;
-
 import com.example.demo.utils.PageUtil;
-import com.example.demo.utils.ResultJson;
 import com.example.demo.utils.StringUtil;
 import com.example.demo.utils.WriteExcel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -44,7 +44,10 @@ public class DataController {
     @RequestMapping("list")
     @ResponseBody
     public PageUtil list(int start,int pageSize){
-        IPage p = visitorlogViewService.page(new Page(start,pageSize),null);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyy-MM-dd hh:mm:ss");
+        String startTime = simpleDateFormat.format(new Date(new Date().getTime() - 24L * 3600000));
+        IPage p = visitorlogViewService.page(new Page(start,pageSize),new QueryWrapper<VisitorlogView>()
+                .lambda().ge(VisitorlogView::getInTime,startTime));
         PageUtil page = new PageUtil((int)p.getTotal(),p.getRecords());
         return page;
     }
@@ -116,6 +119,34 @@ public class DataController {
 
     }
 
+    @RequestMapping("exportAcc")
+    public void exportAcc(HttpServletRequest req, HttpServletResponse resp, String startDate, String endDate) {
+        try {
+            Map<String, String> dic = new HashMap();
+            // dic.put("visitorPin", "访客编号");
+            dic.put("name", "名字");
+            dic.put("mobile", "联系方式");
+            dic.put("deptname", "部门");
+            dic.put("readerName", "读卡器名称");
+            dic.put("deviceName", "设备名称");
+            // dic.put("pin", "被访人编号");
+            // dic.put("visitorStatu", "访客状态");
+            dic.put("sn", "sn");
+            dic.put("time", "刷卡时间");
+            dic.put("eventType", "事件类型");
+            OutputStream out = resp.getOutputStream();
+            resp.setContentType("application/vnd.ms-excel;charset=utf-8");
+            resp.setHeader("Content-disposition", "attachment; filename=" + processFileName(req, "门禁" + startDate + "_" + endDate + ".xls"));
+            SimpleDateFormat sDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            List<Map<String, Object>> list = acclogViewService
+                    .listMaps(new QueryWrapper<AcclogView>().lambda()
+                            .ge(AcclogView::getTime,startDate!=null?sDateFormat.parse(startDate):null));
+            WriteExcel.writeExcel(list, dic, out);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
 
     //解决设置名称时的乱码
     public static String processFileName(HttpServletRequest request, String fileNames) {

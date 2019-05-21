@@ -187,8 +187,11 @@
                 <li class="active"> 访客查询</li>
             </ul>
             <div class="btn-group" style="float:right;">
-                <button id="share" class="btn btn-primary" style="font-size: 12px;padding: 4px 4px;margin-top: 3px;">
-                    导出 <i class="fa fa-share-square-o"></i>
+                <button id="share1" class="btn btn-primary" style="font-size: 12px;padding: 4px 4px;margin-top: 3px;">
+                    导出访客 <i class="fa fa-share-square-o"></i>
+                </button>
+                <button id="share2" class="btn btn-info" style="font-size: 12px;padding: 4px 4px;margin-top: 3px;">
+                    导出门禁 <i class="fa fa-share-square-o"></i>
                 </button>
             </div>
         </div>
@@ -410,7 +413,7 @@
             });
     })();
 
-    $("#share").click(function () {
+    $("#share1").click(function () {
         swal({
             title: '确认导出今天访客数据吗？',
             showCancelButton: true,
@@ -437,9 +440,36 @@
 
     })
 
+    $("#share2").click(function () {
+        swal({
+            title: '确认导出今天门禁数据吗？',
+            showCancelButton: true,
+            animation: "slide-from-top",
+            confirmButtonText: '确认',
+            cancelButtonText: '取消',
+            preConfirm: function (result) {
+                return new Promise(function (resolve) {
+                    if (result) {
+                        resolve([
+                        ]);
+                    }
+                });
+            }
+        }).then(function (result) {
+            if (result) {
+                var current = new Date(new Date().getTime() - 2 * 3600000 );
+                var time = current.getHours() * 3600000 + current.getMinutes() * 60000 + current.getSeconds() * 1000;
+                var start = current.getTime() - time + 2 * 3600000;
+                var end = current.getTime() - time + 26 * 3600000;;
+                window.location.href = "/exportAcc?startDate=" + dateFtt("yyyy-MM-dd hh:mm:ss", new Date(start)) + "&endDate=" + dateFtt("yyyy-MM-dd hh:mm:ss", new Date(end));
+            }
+        })
+
+    })
+
 
         $(function () {
-            var t2 = window.setInterval(function() {
+            window.setInterval(function() {
 
                 $("#time").text(dateFtt("hh:mm:ss",new Date()))
 

@@ -40,7 +40,13 @@
         <if test="startTime != null ">
             and in_time &gt;= #{startTime}
         </if>
-        order by in_time desc
+    </select>
+
+    <select id="count" parameterType="map" resultType="int">
+        select count(*) from visitorlog_view where 1=1
+        <if test="startTime != null ">
+            and in_time &gt;= #{startTime}
+        </if>
     </select>
 
     <select id="selectVisitorCount" parameterType="map" resultType="map">
