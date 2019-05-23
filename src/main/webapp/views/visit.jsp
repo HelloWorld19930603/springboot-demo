@@ -188,10 +188,13 @@
             </ul>
             <div class="btn-group" style="float:right;">
                 <button id="share1" class="btn btn-primary" style="font-size: 12px;padding: 4px 4px;margin-top: 3px;">
-                    导出访客 <i class="fa fa-share-square-o"></i>
+                    导出访客报表 <i class="fa fa-share-square-o"></i>
                 </button>
                 <button id="share2" class="btn btn-info" style="font-size: 12px;padding: 4px 4px;margin-top: 3px;">
-                    导出门禁 <i class="fa fa-share-square-o"></i>
+                    导出门禁报表1 <i class="fa fa-share-square-o"></i>
+                </button>
+                <button id="share3" class="btn btn-file" style="font-size: 12px;padding: 4px 4px;margin-top: 3px;">
+                    导出门禁报表2 <i class="fa fa-share-square-o"></i>
                 </button>
             </div>
         </div>
@@ -200,7 +203,25 @@
         <!--body wrapper start-->
         <div class="wrapper">
 
-
+            <section class="search-area panel">
+                <%--<c:if test="${!(userDetail eq null) && userDetail.isAdmin}">--%>
+                <div class="sa-ele">
+                    <label class="se-title">访客名称:</label>
+                    <input class="se-con" name="name"/>
+                </div>
+                <div class="sa-ele">
+                    <label class="se-title">手机号:</label>
+                    <input class="se-con" name="mobile"/>
+                </div>
+                 <div class="sa-ele">
+                     <label class="se-title">车牌号:</label>
+                     <input class="se-con" name="plate"/>
+                  </div>
+                <div class="sa-ele">
+                    <button class="search-action">搜索</button>
+                    <button class="reset-action">重置</button>
+                </div>
+            </section>
             <section class="grid-main" style="margin-top: 5px;">
                 <table></table>
             </section>
@@ -390,6 +411,27 @@
 
 
     (function(){
+        // 绑定搜索事件
+        document.querySelector('.search-action').addEventListener('click', function () {
+            var _query = {
+                name: document.querySelector('[name="name"]').value,
+                mobile: document.querySelector('[name="mobile"]').value,
+                plate: document.querySelector('[name="plate"]').value,
+                index: 1
+            };
+            table.GM('setQuery', _query, function(){
+                console.log('setQuery执行成功');
+            });
+        });
+
+        // 绑定重置
+        document.querySelector('.reset-action').addEventListener('click', function () {
+            document.querySelector('[name="name"]').value = '';
+            document.querySelector('[name="mobile"]').value = '';
+            document.querySelector('[name="plate"]').value = '';
+        });
+
+
         init();
         var current = new Date(new Date().getTime() - 2 * 3600000 );
         var time = current.getHours() * 3600000 + current.getMinutes() * 60000 + current.getSeconds() * 1000;
@@ -404,6 +446,7 @@
                     $("#p4").text(data.num5);
                     $("#p5").text(data.num6);
                     $("#p6").text(data.num3);
+                    $("#p7").text(data.num7);
                     $("#total").text(data.all);
                 },
                 error: function (data) {
@@ -414,35 +457,45 @@
     })();
 
     $("#share1").click(function () {
-        swal({
-            title: '确认导出今天访客数据吗？',
-            showCancelButton: true,
-            animation: "slide-from-top",
-            confirmButtonText: '确认',
-            cancelButtonText: '取消',
-            preConfirm: function (result) {
-                return new Promise(function (resolve) {
-                    if (result) {
-                        resolve([
-                        ]);
-                    }
-                });
-            }
-        }).then(function (result) {
-            if (result) {
-                var current = new Date(new Date().getTime() - 2 * 3600000 );
-                var time = current.getHours() * 3600000 + current.getMinutes() * 60000 + current.getSeconds() * 1000;
-                var start = current.getTime() - time + 2 * 3600000;
-                var end = current.getTime() - time + 26 * 3600000;;
-                window.location.href = "/exportVisitor?startDate=" + dateFtt("yyyy-MM-dd hh:mm:ss", new Date(start)) + "&endDate=" + dateFtt("yyyy-MM-dd hh:mm:ss", new Date(end));
-            }
-        })
+        exportVisit("所有访客")
+
+    })
+
+    $("#a1").click(function () {
+        exportVisit("客户")
+
+    })
+
+    $("#a3").click(function () {
+        exportVisit("内部人员（分公司）")
+
+    })
+
+    $("#a4").click(function () {
+        exportVisit("供应商")
+
+    })
+
+    $("#a5").click(function () {
+        exportVisit("访客")
 
     })
 
     $("#share2").click(function () {
+        exportAcc("门禁报表1")
+
+    })
+
+    $("#share3").click(function () {
+        exportAcc2("门禁报表2")
+
+    })
+
+
+
+    function exportVisit(type) {
         swal({
-            title: '确认导出今天门禁数据吗？',
+            title: '确认导出今天'+type+'数据吗？',
             showCancelButton: true,
             animation: "slide-from-top",
             confirmButtonText: '确认',
@@ -461,11 +514,62 @@
                 var time = current.getHours() * 3600000 + current.getMinutes() * 60000 + current.getSeconds() * 1000;
                 var start = current.getTime() - time + 2 * 3600000;
                 var end = current.getTime() - time + 26 * 3600000;;
-                window.location.href = "/exportAcc?startDate=" + dateFtt("yyyy-MM-dd hh:mm:ss", new Date(start)) + "&endDate=" + dateFtt("yyyy-MM-dd hh:mm:ss", new Date(end));
+                window.location.href = "/exportVisitor?startDate=" + dateFtt("yyyy-MM-dd hh:mm:ss", new Date(start)) + "&endDate=" + dateFtt("yyyy-MM-dd hh:mm:ss", new Date(end))+"&type="+type;
             }
         })
+    }
 
-    })
+    function exportAcc(type){
+        swal({
+            title: '确认导出今天'+type+'数据吗？',
+            showCancelButton: true,
+            animation: "slide-from-top",
+            confirmButtonText: '确认',
+            cancelButtonText: '取消',
+            preConfirm: function (result) {
+                return new Promise(function (resolve) {
+                    if (result) {
+                        resolve([
+                        ]);
+                    }
+                });
+            }
+        }).then(function (result) {
+            if (result) {
+                var current = new Date(new Date().getTime() - 2 * 3600000 );
+                var time = current.getHours() * 3600000 + current.getMinutes() * 60000 + current.getSeconds() * 1000;
+                var start = current.getTime() - time + 2 * 3600000;
+                var end = current.getTime() - time + 26 * 3600000;;
+                window.location.href = "/exportAcc?startDate=" + dateFtt("yyyy-MM-dd hh:mm:ss", new Date(start)) + "&endDate=" + dateFtt("yyyy-MM-dd hh:mm:ss", new Date(end))+"&type="+type;
+            }
+        })
+    }
+
+    function exportAcc2(type){
+        swal({
+            title: '确认导出今天'+type+'数据吗？',
+            showCancelButton: true,
+            animation: "slide-from-top",
+            confirmButtonText: '确认',
+            cancelButtonText: '取消',
+            preConfirm: function (result) {
+                return new Promise(function (resolve) {
+                    if (result) {
+                        resolve([
+                        ]);
+                    }
+                });
+            }
+        }).then(function (result) {
+            if (result) {
+                var current = new Date(new Date().getTime() - 2 * 3600000 );
+                var time = current.getHours() * 3600000 + current.getMinutes() * 60000 + current.getSeconds() * 1000;
+                var start = current.getTime() - time + 2 * 3600000;
+                var end = current.getTime() - time + 26 * 3600000;;
+                window.location.href = "/exportAcc2?startDate=" + dateFtt("yyyy-MM-dd hh:mm:ss", new Date(start)) + "&endDate=" + dateFtt("yyyy-MM-dd hh:mm:ss", new Date(end))+"&type="+type;
+            }
+        })
+    }
 
 
         $(function () {

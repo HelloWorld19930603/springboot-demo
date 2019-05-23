@@ -1,3 +1,4 @@
+/*
 package com.example.demo.interceptor;
 
 import org.springframework.stereotype.Component;
@@ -12,11 +13,10 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
 
     public static final String COOKIE_NAME = "TT_TOKEN";
 
-
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
-        System.out.println("preHandle");
+        //System.out.println("preHandle");
         return true;
     }
 
@@ -32,3 +32,4 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
 
 }
 
+*/

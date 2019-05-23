@@ -19,4 +19,6 @@ public interface AcclogViewMapper extends BaseMapper<AcclogView> {
 
 
     public List<Map<String,Object>> selectAccCount(Map map);
+
+    List<Map<String, Object>> selectMaps(Map map);
 }

@@ -5,12 +5,10 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.demo.entity.VisitorlogView;
 import com.example.demo.mapper.VisitorlogViewMapper;
 import com.example.demo.service.VisitorlogViewService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,9 +29,11 @@ public class VisitorlogViewImpl extends ServiceImpl<VisitorlogViewMapper, Visito
     VisitorlogViewMapper visitorlogViewMapper;
 
     @Override
-    public List<Map<String, Object>> selectMap(Object startTime) {
+    public List<Map<String, Object>> selectMap(Object startTime, String type, String outTime) {
         Map map = new HashMap();
         map.put("startTime",startTime);
+        map.put("type",type);
+        map.put("outTime",outTime);
         return visitorlogViewMapper.selectMap(map);
     }
 

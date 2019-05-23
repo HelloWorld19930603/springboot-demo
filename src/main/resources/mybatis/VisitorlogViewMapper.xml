@@ -32,13 +32,20 @@
         <result column="in_time" property="inTime" />
         <result column="out_time" property="outTime" />
         <result column="visitor_type" property="visitorType" />
+        <result column="s" property="s" />
     </resultMap>
 
 
     <select id="selectMap" parameterType="map" resultMap="BaseMap">
-        select * from visitorlog_view where 1=1
+        select * ,(case when out_time = null then '在园区' else '已签离' end) s from visitorlog_view where 1=1
         <if test="startTime != null ">
             and in_time &gt;= #{startTime}
+        </if>
+        <if test="type != null and type != '所有访客'">
+            and visitor_type = #{type}
+        </if>
+        <if test="outTime == 'NULL' ">
+            and out_time = null
         </if>
     </select>
 
@@ -50,9 +57,10 @@
     </select>
 
     <select id="selectVisitorCount" parameterType="map" resultType="map">
-        select * from visitorlog_view where 1=1
+        select visitor_type from visitorlog_view where 1=1
         <if test="startTime != null and startTime != ''">
             and in_time &gt;= #{startTime}
         </if>
+        and out_time = null
     </select>
 </mapper>

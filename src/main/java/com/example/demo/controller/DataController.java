@@ -43,11 +43,14 @@ public class DataController {
 
     @RequestMapping("list")
     @ResponseBody
-    public PageUtil list(int start,int pageSize){
+    public PageUtil list(int start,int pageSize,String name,String mobile,String plate){
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyy-MM-dd hh:mm:ss");
         String startTime = simpleDateFormat.format(new Date(new Date().getTime() - 24L * 3600000));
         IPage p = visitorlogViewService.page(new Page(start,pageSize),new QueryWrapper<VisitorlogView>()
-                .lambda().ge(VisitorlogView::getInTime,startTime));
+                .lambda().ge(VisitorlogView::getInTime,startTime)
+                .like(StringUtil.isNotEmpty(name),VisitorlogView::getName,name)
+                .like(StringUtil.isNotEmpty(mobile),VisitorlogView::getVisitorMobile,mobile)
+                .like(StringUtil.isNotEmpty(plate),VisitorlogView::getVisitorPlate,plate));
         PageUtil page = new PageUtil((int)p.getTotal(),p.getRecords());
         return page;
     }
@@ -63,13 +66,14 @@ public class DataController {
         map.put("num2",0);//TK分公司人员
         map.put("num3",0);//异常人员
         map.put("num4",0); //客户
-        map.put("num5",0);//供应商
+        map.put("num5",0);//临时供应商
         map.put("num6",0);//临时来访
+        map.put("num7",0);//长期供应商
         for(Map m1 : accMap){
             if(m1.get("deptname").equals(0) && m1.get("n").equals(1)){
                 map.put("num1",(int)map.get("num1") +1 );
             }else if(m1.get("deptname").equals(1) && m1.get("n").equals(1)){
-                map.put("num5",(int)map.get("num5") +1 );
+                map.put("num7",(int)map.get("num7") +1 );
             }else if(!m1.get("n").equals(1)|| !m1.get("n").equals(0)){
                 map.put("num3",(int)map.get("num3") +1 );
             }
@@ -81,18 +85,19 @@ public class DataController {
                 map.put("num5",(int)map.get("num5") +1 );
             }else if(StringUtil.isEqual(m2.get("visitor_type"),"访客")){
                 map.put("num6",(int)map.get("num6") +1 );
-            }else if(StringUtil.isEqual(m2.get("visitor_type"),"内部人员(分公司)")){
+            }else if(StringUtil.isEqual(m2.get("visitor_type"),"内部人员（分公司）")){
                 map.put("num2",(int)map.get("num2") +1 );
             }
         }
-        int all = (int)map.get("num1")+(int)map.get("num2")+(int)map.get("num3")+(int)map.get("num4")+(int)map.get("num5")+(int)map.get("num6");
+        int all = (int)map.get("num1")+(int)map.get("num2")+(int)map.get("num3")
+                +(int)map.get("num4")+(int)map.get("num5")+(int)map.get("num7");
         map.put("all",all);
         return map;
     }
 
 
     @RequestMapping("exportVisitor")
-    public void exportVisitor(HttpServletRequest req, HttpServletResponse resp, String startDate, String endDate) {
+    public void exportVisitor(HttpServletRequest req, HttpServletResponse resp, String startDate, String endDate,String type) {
         try {
             Map<String, String> dic = new HashMap();
            // dic.put("visitorPin", "访客编号");
@@ -109,9 +114,9 @@ public class DataController {
             dic.put("visitorType", "访客类型");
             OutputStream out = resp.getOutputStream();
             resp.setContentType("application/vnd.ms-excel;charset=utf-8");
-            resp.setHeader("Content-disposition", "attachment; filename=" + processFileName(req, "访客" + startDate + "_" + endDate + ".xls"));
+            resp.setHeader("Content-disposition", "attachment; filename=" + processFileName(req, type + startDate + "_" + endDate + ".xls"));
             SimpleDateFormat sDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            List<Map<String, Object>> list = visitorlogViewService.selectMap(startDate!=null?sDateFormat.parse(startDate):null);
+            List<Map<String, Object>> list = visitorlogViewService.selectMap(startDate!=null?sDateFormat.parse(startDate):null,type,"NULL");
             WriteExcel.writeExcel(list, dic, out);
         } catch (Exception e) {
             e.printStackTrace();
@@ -123,24 +128,45 @@ public class DataController {
     public void exportAcc(HttpServletRequest req, HttpServletResponse resp, String startDate, String endDate) {
         try {
             Map<String, String> dic = new HashMap();
-            // dic.put("visitorPin", "访客编号");
-            dic.put("name", "名字");
-            dic.put("mobile", "联系方式");
+            dic.put("name", "员工名字");
+            dic.put("mobile", "手机号码");
             dic.put("deptname", "部门");
-            dic.put("readerName", "读卡器名称");
-            dic.put("deviceName", "设备名称");
-            // dic.put("pin", "被访人编号");
-            // dic.put("visitorStatu", "访客状态");
+            dic.put("reader_name", "读卡器名称");
+            dic.put("device_name", "设备名称");
+             dic.put("pin", "人员编号");
             dic.put("sn", "sn");
             dic.put("time", "刷卡时间");
-            dic.put("eventType", "事件类型");
+            dic.put("event_type", "事件类型");
             OutputStream out = resp.getOutputStream();
             resp.setContentType("application/vnd.ms-excel;charset=utf-8");
-            resp.setHeader("Content-disposition", "attachment; filename=" + processFileName(req, "门禁" + startDate + "_" + endDate + ".xls"));
+            resp.setHeader("Content-disposition", "attachment; filename=" + processFileName(req, "门禁报表1—" + startDate + "_" + endDate + ".xls"));
             SimpleDateFormat sDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             List<Map<String, Object>> list = acclogViewService
                     .listMaps(new QueryWrapper<AcclogView>().lambda()
-                            .ge(AcclogView::getTime,startDate!=null?sDateFormat.parse(startDate):null));
+                            .ge(AcclogView::getTime,startDate!=null?sDateFormat.parse(startDate):null)
+                            .eq(AcclogView::getEventType,"正常验证开门")
+                            .isNotNull(AcclogView::getName));
+            WriteExcel.writeExcel(list, dic, out);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @RequestMapping("exportAcc2")
+    public void exportAcc2(HttpServletRequest req, HttpServletResponse resp, String startDate, String endDate) {
+        try {
+            Map<String, String> dic = new HashMap();
+            dic.put("name", "员工名字");
+            dic.put("mobile", "手机号码");
+            dic.put("deptname", "部门");
+            dic.put("type", "类别");
+            dic.put("s", "状态");
+            dic.put("n", "ID2");
+            OutputStream out = resp.getOutputStream();
+            resp.setContentType("application/vnd.ms-excel;charset=utf-8");
+            resp.setHeader("Content-disposition", "attachment; filename=" + processFileName(req, "门禁报表2—" + startDate + "_" + endDate + ".xls"));
+            List<Map<String, Object>> list = acclogViewService.selectMaps(startDate);
             WriteExcel.writeExcel(list, dic, out);
         } catch (Exception e) {
             e.printStackTrace();

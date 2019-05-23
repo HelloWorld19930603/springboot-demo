@@ -16,18 +16,24 @@
     </resultMap>
 
 
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseMap" type="HashMap">
+        <result column="type" property="type" />
+        <result column="deptname" property="deptname" />
+        <result column="mobile" property="mobile" />
+        <result column="n" property="n" />
+        <result column="name" property="name" />
+        <result column="pin" property="pin" />
+        <result column="s" property="s" />
+    </resultMap>
+
     <select id="selectAccCount" parameterType="map" resultType="map">
 
 select (
 case when deptname = '分包方-保安'
-or deptname = 'test'
-or deptname = 'Yangjiang Office'
-or deptname = '调试临时卡组'
 or deptname = '分包方-保安'
 or deptname = '分包方-饭堂'
 or deptname = '分包方-清洁'
-or deptname = '省装'
-or deptname = '试验塔'
 THEN 1 else 0 END) deptname,(count(CASE
 	WHEN reader_name like 'TKI%' THEN 1
 END
@@ -36,7 +42,7 @@ END
 END
 ))n from acclog_view  where 1=1  and deptname not in ('省装','试验塔','调试临时卡组', 'Yangjiang Office','test')
         <if test="startTime != null and startTime != ''">
-            and time &gt;= #{startTime}
+            and time &gt; #{startTime}
         </if>
           GROUP BY pin,deptname having (count(CASE
 	WHEN reader_name like 'TKI%' THEN 1
@@ -45,6 +51,30 @@ END
 	WHEN reader_name like 'TKO%' THEN 1
 END
 )) != 0
+
+    </select>
+
+    <select id="selectMaps" resultMap="BaseMap">
+        select pin,name,mobile,deptname,(case when type = 0 then '内部员工' when type = 1 then '长期供应商' end) type,n,
+        (case when n = 1 then '在园区'
+        when n = 0 then '已签离'
+        when n &gt;1 or n &lt; 0 then '异常' end) s
+        from (
+        select pin,name,mobile,deptname,(
+        case when deptname = '分包方-保安'
+        or deptname = '分包方-保安'
+        or deptname = '分包方-饭堂'
+        or deptname = '分包方-清洁'
+        THEN 1 else 0 END) type,
+        (count(CASE WHEN reader_name like 'TKI%' THEN 1 END )-count(CASE WHEN reader_name like 'TKO%' THEN 1 END ))n
+        from acclog_view
+        where 1=1
+        and deptname not in ('省装','试验塔','调试临时卡组', 'Yangjiang Office','test')
+        <if test="startTime != null and startTime != ''">
+            and time &gt; #{startTime}
+        </if>
+        GROUP BY pin,name,mobile,deptname
+        having (count(CASE WHEN reader_name like 'TKI%' THEN 1 END )-count(CASE WHEN reader_name like 'TKO%' THEN 1 END )) != 0 ) a
 
     </select>
 

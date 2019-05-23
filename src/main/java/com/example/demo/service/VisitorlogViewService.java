@@ -4,7 +4,6 @@ package com.example.demo.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.demo.entity.VisitorlogView;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -18,9 +17,10 @@ import java.util.Map;
  */
 public interface VisitorlogViewService extends IService<VisitorlogView> {
 
-    public List<Map<String,Object>> selectMap(Object startTime);
+
+    List<Map<String, Object>> selectMap(Object startTime, String type, String outTime);
 
     int count(Object startTime);
 
-    public List<Map<String,Object>> selectVisitorCount(Map map);
+     List<Map<String,Object>> selectVisitorCount(Map map);
 }

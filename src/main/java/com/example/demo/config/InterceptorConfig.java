@@ -1,3 +1,4 @@
+/*
 package com.example.demo.config;
 
 import com.example.demo.interceptor.LoginHandlerInterceptor;
@@ -29,3 +30,4 @@ public class InterceptorConfig implements WebMvcConfigurer {
 
 
 }
+*/
