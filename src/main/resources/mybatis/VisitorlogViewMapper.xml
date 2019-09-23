@@ -37,7 +37,7 @@
 
 
     <select id="selectMap" parameterType="map" resultMap="BaseMap">
-        select * ,(case when out_time = null then '在园区' else '已签离' end) s from visitorlog_view where 1=1
+        select * ,(case when out_time is null then '在园区' else '已签离' end) s from visitorlog_view where 1=1
         <if test="startTime != null ">
             and in_time &gt;= #{startTime}
         </if>
@@ -45,7 +45,7 @@
             and visitor_type = #{type}
         </if>
         <if test="outTime == 'NULL' ">
-            and out_time = null
+            and out_time is null
         </if>
     </select>
 
@@ -61,6 +61,6 @@
         <if test="startTime != null and startTime != ''">
             and in_time &gt;= #{startTime}
         </if>
-        and out_time = null
+        and out_time is null
     </select>
 </mapper>

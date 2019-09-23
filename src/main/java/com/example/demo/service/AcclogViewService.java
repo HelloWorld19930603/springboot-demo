@@ -19,5 +19,5 @@ public interface AcclogViewService extends IService<AcclogView> {
 
     public List<Map<String,Object>> selectAccCount(Map map);
 
-    List<Map<String, Object>> selectMaps(String o);
+    List<Map<String, Object>> selectMap(String o);
 }

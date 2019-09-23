@@ -108,6 +108,7 @@ public class DataController {
             dic.put("name", "被访人姓名");
            // dic.put("pin", "被访人编号");
            // dic.put("visitorStatu", "访客状态");
+            dic.put("s", "访客状态");
             dic.put("inAddress", "访客地址");
             dic.put("inTime", "进入时间");
             dic.put("outTime", "离开时间");
@@ -116,7 +117,7 @@ public class DataController {
             resp.setContentType("application/vnd.ms-excel;charset=utf-8");
             resp.setHeader("Content-disposition", "attachment; filename=" + processFileName(req, type + startDate + "_" + endDate + ".xls"));
             SimpleDateFormat sDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            List<Map<String, Object>> list = visitorlogViewService.selectMap(startDate!=null?sDateFormat.parse(startDate):null,type,"NULL");
+            List<Map<String, Object>> list = visitorlogViewService.selectMap(startDate!=null?sDateFormat.parse(startDate):null,type,null);
             WriteExcel.writeExcel(list, dic, out);
         } catch (Exception e) {
             e.printStackTrace();
@@ -158,6 +159,7 @@ public class DataController {
         try {
             Map<String, String> dic = new HashMap();
             dic.put("name", "员工名字");
+            dic.put("pin", "员工编号");
             dic.put("mobile", "手机号码");
             dic.put("deptname", "部门");
             dic.put("type", "类别");
@@ -166,7 +168,7 @@ public class DataController {
             OutputStream out = resp.getOutputStream();
             resp.setContentType("application/vnd.ms-excel;charset=utf-8");
             resp.setHeader("Content-disposition", "attachment; filename=" + processFileName(req, "门禁报表2—" + startDate + "_" + endDate + ".xls"));
-            List<Map<String, Object>> list = acclogViewService.selectMaps(startDate);
+            List<Map<String, Object>> list = acclogViewService.selectMap(startDate);
             WriteExcel.writeExcel(list, dic, out);
         } catch (Exception e) {
             e.printStackTrace();

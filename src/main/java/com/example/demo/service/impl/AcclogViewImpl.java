@@ -34,9 +34,9 @@ public class AcclogViewImpl extends ServiceImpl<AcclogViewMapper, AcclogView> im
     }
 
     @Override
-    public List<Map<String, Object>> selectMaps(String startTime) {
+    public List<Map<String, Object>> selectMap(String startTime) {
         Map map = new HashMap();
         map.put("startTime",startTime);
-        return acclogViewMapper.selectMaps(map);
+        return acclogViewMapper.selectMap(map);
     }
 }

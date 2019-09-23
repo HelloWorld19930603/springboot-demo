@@ -54,7 +54,7 @@ END
 
     </select>
 
-    <select id="selectMaps" resultMap="BaseMap">
+    <select id="selectMap" resultMap="BaseMap">
         select pin,name,mobile,deptname,(case when type = 0 then '内部员工' when type = 1 then '长期供应商' end) type,n,
         (case when n = 1 then '在园区'
         when n = 0 then '已签离'

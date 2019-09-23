@@ -24,6 +24,8 @@
     <![endif]-->
 </head>
 <style>
+    * { touch-action: pan-y; }
+
     .search-wrapper .input-holder {
         overflow: hidden;
         background: rgba(255,255,255,0);
@@ -310,12 +312,12 @@
                 return response;
             }
             ,columnData: [
-                {
+/*                {
                     key: 'visitorPin',
                     remind: 'the pic',
                     text: '编号',
                     isShow: false
-                },
+                },*/
                 {
                     key: 'visitorName',
                     remind: 'the pic',
@@ -325,7 +327,7 @@
                     // 使用函数返回 dom node
                     template: function(visitorName, rowObject) {
 
-                        return visitorName=='NULL'?"":visitorName;
+                        return visitorName==null?"":visitorName;
                     }
                 },{
                     key: 'visitorMobile',
@@ -337,7 +339,7 @@
                     // 使用函数返回 dom node
                     template: function(visitorMobile, rowObject) {
 
-                        return visitorMobile=='NULL'?"":visitorMobile;
+                        return visitorMobile==null?"":visitorMobile;
                     }
                 }, {
                     key: 'visitorCompany',
@@ -348,7 +350,7 @@
                     // 使用函数返回 dom node
                     template: function(visitorCompany, rowObject) {
 
-                        return visitorCompany=='NULL'?"":visitorCompany;
+                        return visitorCompany==null?"":visitorCompany;
                     }
                 }, {
                     key: 'visitorPlate',
@@ -359,7 +361,7 @@
                     // 使用函数返回 dom node
                     template: function(visitorPlate, rowObject) {
 
-                        return visitorPlate=='NULL'?"":visitorPlate;
+                        return visitorPlate==null?"":visitorPlate;
                     }
                 },{
                     key: 'inTime',
@@ -371,7 +373,7 @@
                     // 使用函数返回 dom node
                     template: function(inTime, rowObject) {
 
-                        return inTime=='NULL'?"":inTime.replace("T"," ");
+                        return inTime==null?"":inTime.replace("T"," ");
                     }
                 },{
                     key: 'outTime',
@@ -383,7 +385,7 @@
                     // 使用函数返回 dom node
                     template: function(outTime, rowObject) {
 
-                        return outTime=='NULL'?"":outTime.replace("T"," ");
+                        return outTime==null?"":outTime.replace("T"," ");
                     }
                 }, {
                     key: 'visitorType',
@@ -394,7 +396,7 @@
                     // 使用函数返回 dom node
                     template: function(visitorType, rowObject) {
 
-                        return visitorType=='NULL'?"":visitorType;
+                        return visitorType==null?"":visitorType;
                     }
                 }
             ]

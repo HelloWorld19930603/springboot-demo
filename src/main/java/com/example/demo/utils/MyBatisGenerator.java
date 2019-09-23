@@ -38,8 +38,8 @@ public class MyBatisGenerator {
         globalConfig.setBaseColumnList(false);// XML columList
         globalConfig.setAuthor("cc");
         //生成文件名:
-        globalConfig.setXmlName("%sDao");
-        globalConfig.setMapperName("%sDao");
+        globalConfig.setXmlName("%sMapper");
+        globalConfig.setMapperName("%sMapper");
         globalConfig.setServiceName("%sService");
         globalConfig.setServiceImplName("%sServiceImpl");
         globalConfig.setControllerName("%sController");
@@ -65,9 +65,9 @@ public class MyBatisGenerator {
         dataSourceConfig.setUrl("jdbc:sqlserver://localhost:1433;DatabaseName=xingda");
         */
         dataSourceConfig.setDriverName("com.mysql.jdbc.Driver");
-        dataSourceConfig.setUsername("root");
-        dataSourceConfig.setPassword("aqkc123456");
-        dataSourceConfig.setUrl("jdbc:mysql://47.96.88.59:3306/impc?useUnicode=true&useSSL=false&characterEncoding=utf8");
+        dataSourceConfig.setUsername("genergy");
+        dataSourceConfig.setPassword("Genergy#123");
+        dataSourceConfig.setUrl("jdbc:mysql://118.178.201.94:3306/impc?useUnicode=true&useSSL=false&characterEncoding=utf8");
         autoGenerator.setDataSource(dataSourceConfig);
 
         // 策略配置
@@ -75,7 +75,7 @@ public class MyBatisGenerator {
 //        strategyConfig.setCapitalMode(true);    // 全局大写命名 ORACLE 注意
         strategyConfig.setTablePrefix(new String[]{"yj_", "gy_", "d_", "t", "h_"});// 此处可以修改为您的表前缀
         strategyConfig.setNaming(NamingStrategy.underline_to_camel);
-        strategyConfig.setInclude(new String[]{"maintenance_fault_type","maintenance_feedback"}); // 需要生成的表
+        strategyConfig.setInclude(new String[]{"device_data"}); // 需要生成的表
         // strategy.setExclude(new String[]{"test"}); // 排除生成的表
         // 自定义实体父类
         // strategy.setSuperEntityClass("com.baomidou.demo.TestEntity");
@@ -100,6 +100,7 @@ public class MyBatisGenerator {
         // 包配置
         PackageConfig packageConfig = new PackageConfig();
         packageConfig.setParent("com.genergy.cloud");
+        packageConfig.setEntity("model.entity");
         packageConfig.setController("controller");
         packageConfig.setXml("mybatis.mapper");
         autoGenerator.setPackageInfo(packageConfig);

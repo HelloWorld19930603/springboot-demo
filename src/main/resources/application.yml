@@ -4,9 +4,9 @@ spring:
       prefix: /views/
       suffix: .jsp
   datasource:
-    url: jdbc:sqlserver://localhost:1433;DatabaseName=xingda
+    url: jdbc:sqlserver://localhost:1433;DatabaseName=security_db3150
     username: sa
-    password: qq123!!
+    password: Abc123456
 #    url: jdbc:sqlserver://localhost:1433;DatabaseName=security_db3150
 #    username: sa
 #    password: Abc123456
