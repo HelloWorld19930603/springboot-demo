@@ -442,13 +442,18 @@
                 url: "/count?startTime="+dateFtt("yyyy-MM-dd hh:mm:ss", new Date(start)),
                 type: "get",
                 success: function (data) {
-                    $("#p1").text(data.num4);
-                    $("#p2").text(data.num1);
-                    $("#p3").text(data.num2);
-                    $("#p4").text(data.num5);
-                    $("#p5").text(data.num6);
-                    $("#p6").text(data.num3);
-                    $("#p7").text(data.num7);
+                    //num1 内部员工
+                    //num2 TK分公司人员
+                    //num3 异常人员
+                    //num4 客户
+                    //num5 临时供应商
+                    //num6 临时来访
+                    //num7 长期供应商
+                    $("#p1").text(data.num5 + data.num6);
+                    $("#p2").text(data.num4);
+                    $("#p3").text(data.num7);
+                    $("#p4").text(data.num1 + data.num2);
+                    $("#p5").text(data.num3);
                     $("#total").text(data.all);
                 },
                 error: function (data) {

@@ -45,13 +45,18 @@
                 <div class="panel-body">
                     <ul class="nav nav-pills nav-stacked labels-info ">
                         <li> <h5>园区总人数：<span id="total">0</span></h5> </li>
-                        <li> <a href="#" id="a1"> <i class="fa fa-male text-success"></i> 客户 <p style="font-size: 18px;" id="p1">0</p></a>  </li>
+<%--                        <li> <a href="#" id="a1"> <i class="fa fa-male text-success"></i> 客户 <p style="font-size: 18px;" id="p1">0</p></a>  </li>
                         <li> <a href="#" id="a2"> <i class="fa fa-male text-info"></i> 内部员工 <p style="font-size: 18px;" id="p2">0</p></a> </li>
                         <li> <a href="#" id="a3"> <i class="fa fa-male text-primary"></i> TK分公司人员 <p style="font-size: 18px;" id="p3">0</p></a> </li>
                         <li> <a href="#" id="a4"> <i class="fa fa-male text-area"></i> 临时供应商 <p style="font-size: 18px;" id="p4">0</p ></a> </li>
                         <li> <a href="#" id="a7"> <i class="fa fa-male text-area"></i> 长期供应商 <p style="font-size: 18px;" id="p7">0</p ></a> </li>
                         <li> <a href="#" id="a5"> <i class="fa fa-male text-muted "></i> 临时来访 <p style="font-size: 18px;" id="p5">0</p></a></li>
-                        <li> <a href="#" id="a6"> <i class="fa fa-male text-danger "></i> 异常人员 <p style="font-size: 18px;" id="p6">0</p></a>  </li>
+                        <li> <a href="#" id="a6"> <i class="fa fa-male text-danger "></i> 异常人员 <p style="font-size: 18px;" id="p6">0</p></a>  </li>--%>
+                        <li> <a href="#" id="a1"> <i class="fa fa-male text-success"></i> 访客 <p style="font-size: 18px;" id="p1">0</p></a>  </li>
+                        <li> <a href="#" id="a2"> <i class="fa fa-male text-info"></i> 客户 <p style="font-size: 18px;" id="p2">0</p></a> </li>
+                        <li> <a href="#" id="a3"> <i class="fa fa-male text-primary"></i> 长期供货商 <p style="font-size: 18px;" id="p3">0</p></a> </li>
+                        <li> <a href="#" id="a4"> <i class="fa fa-male text-area"></i>TK内部 <p style="font-size: 18px;" id="p4">0</p ></a> </li>
+                        <li> <a href="#" id="a6"> <i class="fa fa-male text-danger "></i> 异常人员 <p style="font-size: 18px;" id="p5">0</p></a>  </li>
                     </ul>
                 </div>
             </div>

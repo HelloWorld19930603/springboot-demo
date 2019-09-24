@@ -1,5 +1,7 @@
 package com.example.demo.schedule;
 
+import com.example.demo.controller.DataController;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -12,9 +14,13 @@ import java.time.LocalDateTime;
 @EnableScheduling   // 2.开启定时任务
 public class ScheduleJob {
 
+    @Autowired
+    DataController dataController;
+
     //添加定时任务
-    @Scheduled(cron = "0 0 2 * * ?")
+    @Scheduled(cron = "0 0 * * * ?")
     private void configureTasks() {
         System.err.println("执行静态定时任务时间: " + LocalDateTime.now());
+        dataController.test();
     }
 }
