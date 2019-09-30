@@ -1,5 +1,8 @@
 package com.example.demo.utils;
 
+import com.example.demo.service.impl.AcclogViewImpl;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -8,10 +11,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,7 +21,7 @@ public class WriteExcel {
     private static final String EXCEL_XLS = "xls";
     private static final String EXCEL_XLSX = "xlsx";
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
         Map<String, String> dataMap=new HashMap<String, String>();
         dataMap.put("BankName", "BankName");
@@ -31,6 +31,8 @@ public class WriteExcel {
         list.add(dataMap);
         //writeExcel(list, 3, "D:/writeExcel.xlsx");
         System.out.println(System.currentTimeMillis());
+
+        readExcel();
 
     }
 
@@ -98,5 +100,36 @@ public class WriteExcel {
             wb = new XSSFWorkbook(in);
         }
         return wb;
+    }
+
+
+    public static void readExcel() throws Exception {
+        //1.读取Excel文档对象
+        HSSFWorkbook hssfWorkbook = new HSSFWorkbook(new FileInputStream("D:\\demo.xls"));
+        //2.获取要解析的表格（第一个表格）
+        HSSFSheet sheet = hssfWorkbook.getSheetAt(0);
+        //获得最后一行的行号
+        int lastRowNum = sheet.getLastRowNum();
+        List<Map<String,Object>> list = new ArrayList<>();
+        for (int i = 0; i <= lastRowNum; i++) {//遍历每一行
+            //3.获得要解析的行
+            HSSFRow row = sheet.getRow(i);
+            //4.获得每个单元格中的内容（String）
+            String stringCellValue0 = row.getCell(0).getStringCellValue();
+            String stringCellValue1 = row.getCell(1).getStringCellValue();
+            String stringCellValue2 = row.getCell(5).getStringCellValue();
+            String stringCellValue3 = row.getCell(6).getStringCellValue();
+            String stringCellValue4 = row.getCell(7).getStringCellValue();
+            Map map = new HashMap();
+            map.put("pin",stringCellValue2);
+            map.put("time",stringCellValue4);
+            list.add(map);
+           // System.out.println(stringCellValue0+"--"+stringCellValue1+"--"+stringCellValue2+"--"+stringCellValue3+"--"+stringCellValue4);
+        }
+        Map dic = new HashMap();
+        dic.put("pin", "人员编号");
+        dic.put("time", "刷卡时间");
+        list = new AcclogViewImpl().removeRepeatAcc(list);
+        writeExcel(new AcclogViewImpl().removeRepeatAcc(list),dic,new FileOutputStream("d:\\test.xls"));
     }
 }

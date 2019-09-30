@@ -176,6 +176,10 @@ public class DataController {
 
     }
 
+    public static void main(String[] args) {
+
+    }
+
     @RequestMapping("exportAcc2")
     public void exportAcc2(HttpServletRequest req, HttpServletResponse resp, String startDate, String endDate) {
         try {
