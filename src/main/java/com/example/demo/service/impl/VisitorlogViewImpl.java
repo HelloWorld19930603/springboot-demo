@@ -29,9 +29,10 @@ public class VisitorlogViewImpl extends ServiceImpl<VisitorlogViewMapper, Visito
     VisitorlogViewMapper visitorlogViewMapper;
 
     @Override
-    public List<Map<String, Object>> selectMap(Object startTime, String type, String outTime) {
+    public List<Map<String, Object>> selectMap(Object startTime,Object endTime, String type, String outTime) {
         Map map = new HashMap();
         map.put("startTime",startTime);
+        map.put("endTime",endTime);
         map.put("type",type);
         map.put("outTime",outTime);
         return visitorlogViewMapper.selectMap(map);

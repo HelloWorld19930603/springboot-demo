@@ -41,6 +41,9 @@
         <if test="startTime != null ">
             and in_time &gt;= #{startTime}
         </if>
+        <if test="endTime != null ">
+            and in_time &lt;= #{endTime}
+        </if>
         <if test="type != null and type != '所有访客'">
             and visitor_type = #{type}
         </if>

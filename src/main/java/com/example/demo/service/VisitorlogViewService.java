@@ -18,7 +18,7 @@ import java.util.Map;
 public interface VisitorlogViewService extends IService<VisitorlogView> {
 
 
-    List<Map<String, Object>> selectMap(Object startTime, String type, String outTime);
+    List<Map<String, Object>> selectMap(Object startTime,Object endTime, String type, String outTime);
 
     int count(Object startTime);
 

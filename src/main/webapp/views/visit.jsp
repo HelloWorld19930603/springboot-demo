@@ -198,6 +198,9 @@
                 <button id="share3" class="btn btn-file" style="font-size: 12px;padding: 4px 4px;margin-top: 3px;">
                     导出门禁报表2 <i class="fa fa-share-square-o"></i>
                 </button>
+                <button id="share4" class="btn btn-block" style="font-size: 12px;padding: 4px 4px;margin-top: 3px;">
+                    导出门禁报表3 <i class="fa fa-share-square-o"></i>
+                </button>
             </div>
         </div>
         <!-- page heading end-->
@@ -468,7 +471,24 @@
 
     })
 
-    $("#a1").click(function () {
+
+    $("#share2").click(function () {
+        exportAcc("门禁报表1")
+
+    })
+
+    $("#share3").click(function () {
+        exportAcc2("门禁报表2")
+
+    })
+
+    $("#share4").click(function () {
+        exportAcc3("门禁报表1")
+
+    })
+
+
+/*    $("#a1").click(function () {
         exportVisit("客户")
 
     })
@@ -486,19 +506,7 @@
     $("#a5").click(function () {
         exportVisit("访客")
 
-    })
-
-    $("#share2").click(function () {
-        exportAcc("门禁报表1")
-
-    })
-
-    $("#share3").click(function () {
-        exportAcc2("门禁报表2")
-
-    })
-
-
+    })*/
 
     function exportVisit(type) {
         swal({
@@ -520,7 +528,7 @@
                 var current = new Date(new Date().getTime() - 2 * 3600000 );
                 var time = current.getHours() * 3600000 + current.getMinutes() * 60000 + current.getSeconds() * 1000;
                 var start = current.getTime() - time + 2 * 3600000;
-                var end = current.getTime() - time + 26 * 3600000;;
+                var end = current.getTime() - time + 26 * 3600000;
                 window.location.href = "/exportVisitor?startDate=" + dateFtt("yyyy-MM-dd hh:mm:ss", new Date(start)) + "&endDate=" + dateFtt("yyyy-MM-dd hh:mm:ss", new Date(end))+"&type="+type;
             }
         })
@@ -546,7 +554,7 @@
                 var current = new Date(new Date().getTime() - 2 * 3600000 );
                 var time = current.getHours() * 3600000 + current.getMinutes() * 60000 + current.getSeconds() * 1000;
                 var start = current.getTime() - time + 2 * 3600000;
-                var end = current.getTime() - time + 26 * 3600000;;
+                var end = current.getTime() - time + 26 * 3600000;
                 window.location.href = "/exportAcc?startDate=" + dateFtt("yyyy-MM-dd hh:mm:ss", new Date(start)) + "&endDate=" + dateFtt("yyyy-MM-dd hh:mm:ss", new Date(end))+"&type="+type;
             }
         })
@@ -574,6 +582,32 @@
                 var start = current.getTime() - time + 2 * 3600000;
                 var end = current.getTime() - time + 26 * 3600000;;
                 window.location.href = "/exportAcc2?startDate=" + dateFtt("yyyy-MM-dd hh:mm:ss", new Date(start)) + "&endDate=" + dateFtt("yyyy-MM-dd hh:mm:ss", new Date(end))+"&type="+type;
+            }
+        })
+    }
+
+    function exportAcc3(type){
+        swal({
+            title: '确认导出昨天'+type+'数据吗？',
+            showCancelButton: true,
+            animation: "slide-from-top",
+            confirmButtonText: '确认',
+            cancelButtonText: '取消',
+            preConfirm: function (result) {
+                return new Promise(function (resolve) {
+                    if (result) {
+                        resolve([
+                        ]);
+                    }
+                });
+            }
+        }).then(function (result) {
+            if (result) {
+                var current = new Date(new Date().getTime() - 26 * 3600000 );
+                var time = current.getHours() * 3600000 + current.getMinutes() * 60000 + current.getSeconds() * 1000;
+                var start = current.getTime() - time + 2 * 3600000;
+                var end = current.getTime() - time + 26 * 3600000;
+                window.location.href = "/exportAcc?startDate=" + dateFtt("yyyy-MM-dd hh:mm:ss", new Date(start)) + "&endDate=" + dateFtt("yyyy-MM-dd hh:mm:ss", new Date(end))+"&type="+type;
             }
         })
     }

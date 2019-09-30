@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * <p>
@@ -34,9 +34,43 @@ public class AcclogViewImpl extends ServiceImpl<AcclogViewMapper, AcclogView> im
     }
 
     @Override
-    public List<Map<String, Object>> selectMap(String startTime) {
+    public List<Map<String, Object>> selectMap(String startTime,String endTime) {
         Map map = new HashMap();
         map.put("startTime",startTime);
+        map.put("endTime",endTime);
         return acclogViewMapper.selectMap(map);
+    }
+
+    @Override
+    public List<Map<String, Object>> removeRepeatAcc(List<Map<String, Object>> list) {
+        List<Map<String, Object>> result = new ArrayList();
+        Map<Object, Map> map =new HashMap();
+        SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            for (int i = 0; i < list.size() - 1 ; i++) {
+                Map<String, Object> map1 = list.get(i);
+                Map<String, Object> map2 = list.get(i + 1);
+                if(map1.get("pin").equals(map2.get("pin"))){
+                    Date date1  = sDateFormat.parse(map1.get("time").toString());
+                    Date date2 = sDateFormat.parse(map2.get("time").toString());
+                    if(date2.getTime() - date1.getTime() < 60000){
+                        i += 1;
+                    }
+                }
+                if(map.get(map1.get("pin")) != null){
+                    Date date1  = sDateFormat.parse(map.get(map1.get("pin")).get("time").toString());
+                    Date date2 = sDateFormat.parse(map1.get("time").toString());
+                    if(date2.getTime() - date1.getTime() < 60000){
+                        continue;
+                    }else{
+                        map.put(map1.get("pin"),map1);
+                    }
+                }
+                result.add(map1);
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 }
