@@ -8,15 +8,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <meta name="description" content="">
 
-    <title><%=title%></title>
+    <title><%=title%>
+    </title>
 
     <!--common-->
     <link href="<%=path%>/css/style.css" rel="stylesheet">
     <link href="<%=path%>/css/style-responsive.css" rel="stylesheet">
     <link href="<%=path%>/css/gm.css" rel="stylesheet">
     <link href="<%=path%>/css/grid.css" rel="stylesheet">
+    <link href="<%=path%>/css/datepicker.css" rel="stylesheet">
 
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="<%=path%>/js/html5shiv.js"></script>
@@ -24,46 +27,49 @@
     <![endif]-->
 </head>
 <style>
-    * { touch-action: pan-y; }
+    * {
+        touch-action: pan-y;
+    }
 
     .search-wrapper .input-holder {
         overflow: hidden;
-        background: rgba(255,255,255,0);
-        border-radius:6px;
+        background: rgba(255, 255, 255, 0);
+        border-radius: 6px;
         position: relative;
-        width:70px;
+        width: 70px;
         -webkit-transition: all 0.3s ease-in-out;
         -moz-transition: all 0.3s ease-in-out;
         transition: all 0.3s ease-in-out;
     }
+
     .search-wrapper.active .input-holder {
         border-radius: 30px;
         width: 200px;
-        background: rgba(0,0,0,0.5);
+        background: rgba(0, 0, 0, 0.5);
         -webkit-transition: all .5s cubic-bezier(0.000, 0.105, 0.035, 1.570);
         -moz-transition: all .5s cubic-bezier(0.000, 0.105, 0.035, 1.570);
         transition: all .5s cubic-bezier(0.000, 0.105, 0.035, 1.570);
     }
 
     .search-wrapper .input-holder .search-input {
-        width:100%;
+        width: 100%;
         height: 35px;
         padding: 0px 50px 0 10px;
         opacity: 0;
         position: absolute;
-        top:0px;
-        left:0px;
+        top: 0px;
+        left: 0px;
         background: linear-gradient(to right, #f78ca0 0%, #f9748f 19%, #fd868c 60%, #fe9a8b 100%);;
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
         box-sizing: border-box;
-        border:none;
-        outline:none;
-        font-family:"Open Sans", Arial, Verdana;
+        border: none;
+        outline: none;
+        font-family: "Open Sans", Arial, Verdana;
         font-size: 16px;
         font-weight: 400;
         line-height: 20px;
-        color:#FFF;
+        color: #FFF;
         -webkit-transform: translate(0, 60px);
         -moz-transform: translate(0, 60px);
         transform: translate(0, 60px);
@@ -75,6 +81,7 @@
         -moz-transition-delay: 0.3s;
         transition-delay: 0.3s;
     }
+
     .search-wrapper.active .input-holder .search-input {
         opacity: 1;
         -webkit-transform: translate(0, 10px);
@@ -82,37 +89,41 @@
         transform: translate(0, 10px);
         color: white;
     }
+
     .search-wrapper input::-webkit-input-placeholder {
         color: white;
     }
+
     .search-wrapper .input-holder .search-icon {
-        width:70px;
-        height:35px;
+        width: 70px;
+        height: 35px;
         border: 1px solid #ccc;
         border-radius: 30px;
         background: #FFF;
-        padding:0px;
-        outline:none;
+        padding: 0px;
+        outline: none;
         position: relative;
         z-index: 2;
-        float:right;
+        float: right;
         cursor: pointer;
         -webkit-transition: all 0.3s ease-in-out;
         -moz-transition: all 0.3s ease-in-out;
         transition: all 0.3s ease-in-out;
     }
+
     .search-wrapper.active .input-holder .search-icon {
         width: 40px;
         height: 35px;
         margin: 10px;
         border-radius: 30px;
     }
+
     .search-wrapper .input-holder .search-icon span {
-        width:22px;
-        height:22px;
+        width: 22px;
+        height: 22px;
         display: inline-block;
         vertical-align: middle;
-        position:relative;
+        position: relative;
         -webkit-transform: rotate(45deg);
         -moz-transform: rotate(45deg);
         transform: rotate(45deg);
@@ -121,15 +132,18 @@
         transition: all .4s cubic-bezier(0.650, -0.600, 0.240, 1.650);
 
     }
+
     .search-wrapper.active .input-holder .search-icon span {
         -webkit-transform: rotate(-45deg);
         -moz-transform: rotate(-45deg);
         transform: rotate(-45deg);
     }
+
     .search-wrapper .input-holder .search-icon span::before, .search-wrapper .input-holder .search-icon span::after {
         position: absolute;
-        content:'';
+        content: '';
     }
+
     .search-wrapper .input-holder .search-icon span::before {
         width: 4px;
         height: 11px;
@@ -138,6 +152,7 @@
         border-radius: 2px;
         background: #FE007F;
     }
+
     .search-wrapper .input-holder .search-icon span::after {
         width: 14px;
         height: 14px;
@@ -147,25 +162,25 @@
         border: 4px solid #FE007F;
     }
 
-
     .search-wrapper .result-container {
         width: 100%;
         position: absolute;
-        top:80px;
-        left:0px;
+        top: 80px;
+        left: 0px;
         text-align: center;
         font-family: "Open Sans", Arial, Verdana;
         font-size: 14px;
-        display:none;
-        color:#B7B7B7;
+        display: none;
+        color: #B7B7B7;
     }
-
 
     @media screen and (max-width: 560px) {
-        .search-wrapper.active .input-holder {width:200px;}
+        .search-wrapper.active .input-holder {
+            width: 200px;
+        }
     }
 </style>
-<body class="sticky-header" >
+<body class="sticky-header">
 
 <section>
     <!-- left side start-->
@@ -188,19 +203,30 @@
                 </li>
                 <li class="active"> 访客查询</li>
             </ul>
+            <div class="mt40">
+                <div class="c-datepicker-date-editor c-datepicker-single-editor J-datepicker-day mt10">
+                    <i class="c-datepicker-range__icon kxiconfont icon-clock"></i>
+                    <input type="text" autocomplete="off" name="" placeholder="选择日期" class=" c-datepicker-data-input only-date" value="">
+                </div>
+            </div>
+
             <div class="btn-group" style="float:right;">
-                <button id="share1" class="btn btn-primary" style="font-size: 12px;padding: 4px 4px;margin-top: 3px;">
+                <button id="share1" class="btn btn-primary J-datepicker-day J-datepickerTime-single"
+                        style="font-size: 12px;padding: 4px 4px;margin-top: 3px;">
                     导出访客报表 <i class="fa fa-share-square-o"></i>
                 </button>
-                <button id="share2" class="btn btn-info" style="font-size: 12px;padding: 4px 4px;margin-top: 3px;">
+                <button id="share2" class="btn btn-info J-datepicker-day J-datepickerTime-single"
+                        style="font-size: 12px;padding: 4px 4px;margin-top: 3px;">
                     导出门禁报表1 <i class="fa fa-share-square-o"></i>
                 </button>
-                <button id="share3" class="btn btn-file" style="font-size: 12px;padding: 4px 4px;margin-top: 3px;">
+                <button id="share3" class="btn btn-file J-datepicker-day J-datepickerTime-single"
+                        style="font-size: 12px;padding: 4px 4px;margin-top: 3px;">
                     导出门禁报表2 <i class="fa fa-share-square-o"></i>
                 </button>
-                <button id="share4" class="btn btn-block" style="font-size: 12px;padding: 4px 4px;margin-top: 3px;">
+<%--                <button id="share4" class="btn btn-block J-datepicker-day J-datepickerTime-single"
+                        style="font-size: 12px;padding: 4px 4px;margin-top: 3px;">
                     导出门禁报表3 <i class="fa fa-share-square-o"></i>
-                </button>
+                </button>--%>
             </div>
         </div>
         <!-- page heading end-->
@@ -218,10 +244,10 @@
                     <label class="se-title">手机号:</label>
                     <input class="se-con" name="mobile"/>
                 </div>
-                 <div class="sa-ele">
-                     <label class="se-title">车牌号:</label>
-                     <input class="se-con" name="plate"/>
-                  </div>
+                <div class="sa-ele">
+                    <label class="se-title">车牌号:</label>
+                    <input class="se-con" name="plate"/>
+                </div>
                 <div class="sa-ele">
                     <button class="search-action">搜索</button>
                     <button class="reset-action">重置</button>
@@ -247,7 +273,8 @@
 <script src="<%=path%>/js/bootstrap.min.js"></script>
 <script src="<%=path%>/js/modernizr.min.js"></script>
 <script src="<%=path%>/js/jquery.nicescroll.js"></script>
-
+<script src="<%=path%>/js/date/moment.min.js"></script>
+<script src="<%=path%>/js/date/datepicker.all.js"></script>
 
 <!--common scripts for all pages-->
 <script src="<%=path%>/js/scripts.js"></script>
@@ -272,34 +299,34 @@
     function init() {
         table.GM({
             supportRemind: true
-            ,gridManagerName: 'test'
-            ,height: '100%'
-            ,supportAjaxPage:true
-            ,supportSorting: true
-            ,supportCheckbox: false
-            ,isCombSorting: false
-            ,disableCache: false
-            ,checkbox:false
+            , gridManagerName: 'test'
+            , height: '100%'
+            , supportAjaxPage: true
+            , supportSorting: true
+            , supportCheckbox: false
+            , isCombSorting: false
+            , disableCache: false
+            , checkbox: false
             // ajax_url 将在v2.6.0以上版本废弃，请不要再使用
             // ,ajax_url: 'http://www.lovejavascript.com/blogManager/getBlogList'
-            ,ajax_data: function () {
+            , ajax_data: function () {
                 return '/list';
             }
             // ,firstLoading: false // 初始渲染时是否加载数据
-            ,ajax_type: 'POST'
-            ,supportMenu: true
+            , ajax_type: 'POST'
+            , supportMenu: true
 
 
             // AJAX失败事件函数
-            ,ajax_error: function(error){
+            , ajax_error: function (error) {
                 console.log('ajax_error');
             }
-            ,query: {serise: -1}
-            ,dataKey: 'list'  // 注意: 这里是用来测试responseHandler 是否生效; 数据本身返回为data, 而在这里我把数据名模拟为list, 再通过responseHandler去更改
-            ,pageSize:10
+            , query: {serise: -1}
+            , dataKey: 'list'  // 注意: 这里是用来测试responseHandler 是否生效; 数据本身返回为data, 而在这里我把数据名模拟为list, 再通过responseHandler去更改
+            , pageSize: 10
 
             // 通过该方法修改全部的请求参数
-            ,requestHandler: function(request){
+            , requestHandler: function (request) {
                 request.newParams = '这个参数是通过 requestHandler 函数新增的';
                 // 更改这个参数后, 将会强制createDate字段使用 降序排序.
                 // 'sort_' 通过 配置项 sortKey 进行配置
@@ -308,19 +335,19 @@
                 return request;
             }
             // 可以通过该方法修改返回的数据
-            ,responseHandler: function(response){
+            , responseHandler: function (response) {
 
                 // 数据本身返回为data, 通过responseHandler更改为与dataKey匹配的值
                 response.list = response.data;
                 return response;
             }
-            ,columnData: [
-/*                {
-                    key: 'visitorPin',
-                    remind: 'the pic',
-                    text: '编号',
-                    isShow: false
-                },*/
+            , columnData: [
+                /*                {
+                 key: 'visitorPin',
+                 remind: 'the pic',
+                 text: '编号',
+                 isShow: false
+                 },*/
                 {
                     key: 'visitorName',
                     remind: 'the pic',
@@ -328,11 +355,11 @@
                     align: 'center',
                     text: '访客名称',
                     // 使用函数返回 dom node
-                    template: function(visitorName, rowObject) {
+                    template: function (visitorName, rowObject) {
 
-                        return visitorName==null?"":visitorName;
+                        return visitorName == null ? "" : visitorName;
                     }
-                },{
+                }, {
                     key: 'visitorMobile',
                     remind: 'the title',
                     align: 'center',
@@ -340,9 +367,9 @@
                     text: '访客联系方式',
                     sorting: '',
                     // 使用函数返回 dom node
-                    template: function(visitorMobile, rowObject) {
+                    template: function (visitorMobile, rowObject) {
 
-                        return visitorMobile==null?"":visitorMobile;
+                        return visitorMobile == null ? "" : visitorMobile;
                     }
                 }, {
                     key: 'visitorCompany',
@@ -351,9 +378,9 @@
                     align: 'center',
                     text: '访客公司',
                     // 使用函数返回 dom node
-                    template: function(visitorCompany, rowObject) {
+                    template: function (visitorCompany, rowObject) {
 
-                        return visitorCompany==null?"":visitorCompany;
+                        return visitorCompany == null ? "" : visitorCompany;
                     }
                 }, {
                     key: 'visitorPlate',
@@ -362,11 +389,11 @@
                     align: 'center',
                     text: '访客车牌号',
                     // 使用函数返回 dom node
-                    template: function(visitorPlate, rowObject) {
+                    template: function (visitorPlate, rowObject) {
 
-                        return visitorPlate==null?"":visitorPlate;
+                        return visitorPlate == null ? "" : visitorPlate;
                     }
-                },{
+                }, {
                     key: 'inTime',
                     remind: 'the title',
                     align: 'center',
@@ -374,11 +401,11 @@
                     text: '进入时间',
                     sorting: '',
                     // 使用函数返回 dom node
-                    template: function(inTime, rowObject) {
+                    template: function (inTime, rowObject) {
 
-                        return inTime==null?"":inTime.replace("T"," ");
+                        return inTime == null ? "" : inTime.replace("T", " ");
                     }
-                },{
+                }, {
                     key: 'outTime',
                     remind: 'the title',
                     align: 'center',
@@ -386,9 +413,9 @@
                     text: '离开时间',
                     sorting: '',
                     // 使用函数返回 dom node
-                    template: function(outTime, rowObject) {
+                    template: function (outTime, rowObject) {
 
-                        return outTime==null?"":outTime.replace("T"," ");
+                        return outTime == null ? "" : outTime.replace("T", " ");
                     }
                 }, {
                     key: 'visitorType',
@@ -397,25 +424,24 @@
                     align: 'center',
                     text: '访客类型',
                     // 使用函数返回 dom node
-                    template: function(visitorType, rowObject) {
+                    template: function (visitorType, rowObject) {
 
-                        return visitorType==null?"":visitorType;
+                        return visitorType == null ? "" : visitorType;
                     }
                 }
             ]
             // 排序后事件
-            ,sortingAfter: function (data) {
+            , sortingAfter: function (data) {
                 console.log('sortAfter', data);
             }
-        }, function(query){
+        }, function (query) {
             // 渲染完成后的回调函数
             console.log('渲染完成后的回调函数:', query);
         });
     }
 
 
-
-    (function(){
+    (function () {
         // 绑定搜索事件
         document.querySelector('.search-action').addEventListener('click', function () {
             var _query = {
@@ -424,7 +450,7 @@
                 plate: document.querySelector('[name="plate"]').value,
                 index: 1
             };
-            table.GM('setQuery', _query, function(){
+            table.GM('setQuery', _query, function () {
                 console.log('setQuery执行成功');
             });
         });
@@ -438,32 +464,32 @@
 
 
         init();
-        var current = new Date(new Date().getTime() - 2 * 3600000 );
+        var current = new Date(new Date().getTime() - 2 * 3600000);
         var time = current.getHours() * 3600000 + current.getMinutes() * 60000 + current.getSeconds() * 1000;
         var start = current.getTime() - time + 2 * 3600000;
         $.ajax({
-                url: "/count?startTime="+dateFtt("yyyy-MM-dd hh:mm:ss", new Date(start)),
-                type: "get",
-                success: function (data) {
-                    //num1 内部员工
-                    //num2 TK分公司人员
-                    //num3 异常人员
-                    //num4 客户
-                    //num5 临时供应商
-                    //num6 临时来访
-                    //num7 长期供应商
-                    $("#p1").text(data.num5 + data.num6);
-                    $("#p2").text(data.num4);
-                    $("#p3").text(data.num7);
-                    $("#p4").text(data.num1 + data.num2);
-                    $("#p5").text(data.num3);
-                    $("#total").text(data.all);
-                },
-                error: function (data) {
+            url: "/count?startTime=" + dateFtt("yyyy-MM-dd hh:mm:ss", new Date(start)),
+            type: "get",
+            success: function (data) {
+                //num1 内部员工
+                //num2 TK分公司人员
+                //num3 异常人员
+                //num4 客户
+                //num5 临时供应商
+                //num6 临时来访
+                //num7 长期供应商
+                $("#p1").text(data.num5 + data.num6);
+                $("#p2").text(data.num4);
+                $("#p3").text(data.num7);
+                $("#p4").text(data.num1 + data.num2);
+                $("#p5").text(data.num3);
+                $("#total").text(data.all);
+            },
+            error: function (data) {
 
-                    console.log("count请求异常");
-                }
-            });
+                console.log("count请求异常");
+            }
+        });
     })();
 
     $("#share1").click(function () {
@@ -488,29 +514,30 @@
     })
 
 
-/*    $("#a1").click(function () {
-        exportVisit("客户")
+    /*    $("#a1").click(function () {
+     exportVisit("客户")
 
-    })
+     })
 
-    $("#a3").click(function () {
-        exportVisit("内部人员（分公司）")
+     $("#a3").click(function () {
+     exportVisit("内部人员（分公司）")
 
-    })
+     })
 
-    $("#a4").click(function () {
-        exportVisit("供应商")
+     $("#a4").click(function () {
+     exportVisit("供应商")
 
-    })
+     })
 
-    $("#a5").click(function () {
-        exportVisit("访客")
+     $("#a5").click(function () {
+     exportVisit("访客")
 
-    })*/
+     })*/
 
     function exportVisit(type) {
+
         swal({
-            title: '确认导出今天'+type+'数据吗？',
+            title: '确认导出' + type + '数据吗？',
             showCancelButton: true,
             animation: "slide-from-top",
             confirmButtonText: '确认',
@@ -518,106 +545,210 @@
             preConfirm: function (result) {
                 return new Promise(function (resolve) {
                     if (result) {
-                        resolve([
-                        ]);
+                        resolve([]);
                     }
                 });
             }
         }).then(function (result) {
             if (result) {
-                var current = new Date(new Date().getTime() - 2 * 3600000 );
+                var time = $(".c-datepicker-data-input").val();
+                var start;
+                var end;
+                if (time != null && time != "") {
+                    start = time;
+                    end = new Date(start).getTime()+24*3600000;
+                } else {
+                    var current = new Date(new Date().getTime() - 2 * 3600000);
+                    time = current.getHours() * 3600000 + current.getMinutes() * 60000 + current.getSeconds() * 1000;
+                    start = current.getTime() - time + 2 * 3600000;
+                    end = current.getTime() - time + 26 * 3600000;
+                }
+                window.location.href = "/exportVisitor?startDate=" + dateFtt("yyyy-MM-dd 02:00:00", new Date(start)) + "&endDate=" + dateFtt("yyyy-MM-dd 02:00:00", new Date(end)) + "&type=" + type;
+
+            }
+        })
+    }
+
+    function exportAcc(type) {
+        swal({
+            title: '确认导出' + type + '数据吗？',
+            showCancelButton: true,
+            animation: "slide-from-top",
+            confirmButtonText: '确认',
+            cancelButtonText: '取消',
+            preConfirm: function (result) {
+                return new Promise(function (resolve) {
+                    if (result) {
+                        resolve([]);
+                    }
+                });
+            }
+        }).then(function (result) {
+            if (result) {
+                var time = $(".c-datepicker-data-input").val();
+                var start;
+                var end;
+                if (time != null && time != "") {
+                    start = time;
+                    end = new Date(start).getTime()+24*3600000;
+                } else {
+                    var current = new Date(new Date().getTime() - 2 * 3600000);
+                    time = current.getHours() * 3600000 + current.getMinutes() * 60000 + current.getSeconds() * 1000;
+                    start = current.getTime() - time + 2 * 3600000;
+                    end = current.getTime() - time + 26 * 3600000;
+                }
+                window.location.href = "/exportAcc?startDate=" + dateFtt("yyyy-MM-dd hh:mm:ss", new Date(start)) + "&endDate=" + dateFtt("yyyy-MM-dd hh:mm:ss", new Date(end)) + "&type=" + type;
+            }
+        })
+    }
+
+    function exportAcc2(type) {
+        swal({
+            title: '确认导出' + type + '数据吗？',
+            showCancelButton: true,
+            animation: "slide-from-top",
+            confirmButtonText: '确认',
+            cancelButtonText: '取消',
+            preConfirm: function (result) {
+                return new Promise(function (resolve) {
+                    if (result) {
+                        resolve([]);
+                    }
+                });
+            }
+        }).then(function (result) {
+            if (result) {
+                var time = $(".c-datepicker-data-input").val();
+                var start;
+                var end;
+                if (time != null && time != "") {
+                    start = time;
+                    end = new Date(start).getTime()+24*3600000;
+                } else {
+                    var current = new Date(new Date().getTime() - 2 * 3600000);
+                    time = current.getHours() * 3600000 + current.getMinutes() * 60000 + current.getSeconds() * 1000;
+                    start = current.getTime() - time + 2 * 3600000;
+                    end = current.getTime() - time + 26 * 3600000;
+                }
+                window.location.href = "/exportAcc2?startDate=" + dateFtt("yyyy-MM-dd hh:mm:ss", new Date(start)) + "&endDate=" + dateFtt("yyyy-MM-dd hh:mm:ss", new Date(end)) + "&type=" + type;
+            }
+        })
+    }
+
+    function exportAcc3(type) {
+        swal({
+            title: '确认导出昨天' + type + '数据吗？',
+            showCancelButton: true,
+            animation: "slide-from-top",
+            confirmButtonText: '确认',
+            cancelButtonText: '取消',
+            preConfirm: function (result) {
+                return new Promise(function (resolve) {
+                    if (result) {
+                        resolve([]);
+                    }
+                });
+            }
+        }).then(function (result) {
+            if (result) {
+                var current = new Date(new Date().getTime() - 26 * 3600000);
                 var time = current.getHours() * 3600000 + current.getMinutes() * 60000 + current.getSeconds() * 1000;
                 var start = current.getTime() - time + 2 * 3600000;
                 var end = current.getTime() - time + 26 * 3600000;
-                window.location.href = "/exportVisitor?startDate=" + dateFtt("yyyy-MM-dd hh:mm:ss", new Date(start)) + "&endDate=" + dateFtt("yyyy-MM-dd hh:mm:ss", new Date(end))+"&type="+type;
-            }
-        })
-    }
-
-    function exportAcc(type){
-        swal({
-            title: '确认导出今天'+type+'数据吗？',
-            showCancelButton: true,
-            animation: "slide-from-top",
-            confirmButtonText: '确认',
-            cancelButtonText: '取消',
-            preConfirm: function (result) {
-                return new Promise(function (resolve) {
-                    if (result) {
-                        resolve([
-                        ]);
-                    }
-                });
-            }
-        }).then(function (result) {
-            if (result) {
-                var current = new Date(new Date().getTime() - 2 * 3600000 );
-                var time = current.getHours() * 3600000 + current.getMinutes() * 60000 + current.getSeconds() * 1000;
-                var start = current.getTime() - time + 2 * 3600000;
-                var end = current.getTime() - time + 26 * 3600000;
-                window.location.href = "/exportAcc?startDate=" + dateFtt("yyyy-MM-dd hh:mm:ss", new Date(start)) + "&endDate=" + dateFtt("yyyy-MM-dd hh:mm:ss", new Date(end))+"&type="+type;
-            }
-        })
-    }
-
-    function exportAcc2(type){
-        swal({
-            title: '确认导出今天'+type+'数据吗？',
-            showCancelButton: true,
-            animation: "slide-from-top",
-            confirmButtonText: '确认',
-            cancelButtonText: '取消',
-            preConfirm: function (result) {
-                return new Promise(function (resolve) {
-                    if (result) {
-                        resolve([
-                        ]);
-                    }
-                });
-            }
-        }).then(function (result) {
-            if (result) {
-                var current = new Date(new Date().getTime() - 2 * 3600000 );
-                var time = current.getHours() * 3600000 + current.getMinutes() * 60000 + current.getSeconds() * 1000;
-                var start = current.getTime() - time + 2 * 3600000;
-                var end = current.getTime() - time + 26 * 3600000;;
-                window.location.href = "/exportAcc2?startDate=" + dateFtt("yyyy-MM-dd hh:mm:ss", new Date(start)) + "&endDate=" + dateFtt("yyyy-MM-dd hh:mm:ss", new Date(end))+"&type="+type;
-            }
-        })
-    }
-
-    function exportAcc3(type){
-        swal({
-            title: '确认导出昨天'+type+'数据吗？',
-            showCancelButton: true,
-            animation: "slide-from-top",
-            confirmButtonText: '确认',
-            cancelButtonText: '取消',
-            preConfirm: function (result) {
-                return new Promise(function (resolve) {
-                    if (result) {
-                        resolve([
-                        ]);
-                    }
-                });
-            }
-        }).then(function (result) {
-            if (result) {
-                var current = new Date(new Date().getTime() - 26 * 3600000 );
-                var time = current.getHours() * 3600000 + current.getMinutes() * 60000 + current.getSeconds() * 1000;
-                var start = current.getTime() - time + 2 * 3600000;
-                var end = current.getTime() - time + 26 * 3600000;
-                window.location.href = "/exportAcc?startDate=" + dateFtt("yyyy-MM-dd hh:mm:ss", new Date(start)) + "&endDate=" + dateFtt("yyyy-MM-dd hh:mm:ss", new Date(end))+"&type="+type;
+                window.location.href = "/exportAcc?startDate=" + dateFtt("yyyy-MM-dd hh:mm:ss", new Date(start)) + "&endDate=" + dateFtt("yyyy-MM-dd hh:mm:ss", new Date(end)) + "&type=" + type;
             }
         })
     }
 
 
-        $(function () {
-            window.setInterval(function() {
+    $(function () {
+        window.setInterval(function () {
 
-                $("#time").text(dateFtt("hh:mm:ss",new Date()))
+            $("#time").text(dateFtt("hh:mm:ss", new Date()))
 
-            },1000)
-        })
+        }, 1000)
+    })
+
+
+    $(function () {
+        var DATAPICKERAPI = {
+            // 默认input显示当前月,自己获取后填充
+            activeMonthRange: function () {
+                return {
+                    begin: moment().set({'date': 1, 'hour': 0, 'minute': 0, 'second': 0}).format('YYYY-MM-DD HH:mm:ss'),
+                    end: moment().set({'hour': 23, 'minute': 59, 'second': 59}).format('YYYY-MM-DD HH:mm:ss')
+                }
+            },
+            shortcutMonth: function () {
+                // 当月
+                var nowDay = moment().get('date');
+                var prevMonthFirstDay = moment().subtract(1, 'months').set({'date': 1});
+                var prevMonthDay = moment().diff(prevMonthFirstDay, 'days');
+                return {
+                    now: '-' + nowDay + ',0',
+                    prev: '-' + prevMonthDay + ',-' + nowDay
+                }
+            },
+            // 注意为函数：快捷选项option:只能同一个月份内的
+            rangeMonthShortcutOption1: function () {
+                var result = DATAPICKERAPI.shortcutMonth();
+                return [{
+                    name: '昨天',
+                    day: '-1,-1',
+                    time: '00:00:00,23:59:59'
+                }, {
+                    name: '这一月',
+                    day: result.now,
+                    time: '00:00:00,'
+                }, {
+                    name: '上一月',
+                    day: result.prev,
+                    time: '00:00:00,23:59:59'
+                }];
+            },
+            // 快捷选项option
+            rangeShortcutOption1: [{
+                name: '最近一周',
+                day: '-7,0'
+            }, {
+                name: '最近一个月',
+                day: '-30,0'
+            }, {
+                name: '最近三个月',
+                day: '-90, 0'
+            }],
+            singleShortcutOptions1: [{
+                name: '今天',
+                day: '0'
+            }, {
+                name: '昨天',
+                day: '-1',
+                time: '00:00:00'
+            }, {
+                name: '一周前',
+                day: '-7'
+            }]
+        };
+
+        //年月日单个
+        $('.J-datepicker-day').datePicker({
+            hasShortcut: true,
+            format: 'YYYY-MM-DD HH:mm:ss',
+            shortcutOptions: [{
+                name: '今天',
+                day: '0'
+            }, {
+                name: '昨天',
+                day: '-1'
+            }, {
+                name: '一周前',
+                day: '-7'
+            }]
+        });
+
+        //十分年月日单个
+        $('.J-datepickerTime-single').datePicker({
+            format: 'YYYY-MM-DD'
+        });
+    });
 </script>
