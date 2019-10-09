@@ -167,6 +167,7 @@ public class DataController {
             List<Map<String, Object>> list = acclogViewService
                     .listMaps(new QueryWrapper<AcclogView>().lambda()
                             .ge(AcclogView::getTime, startDate != null ? sDateFormat.parse(startDate) : null)
+                            .le(AcclogView::getTime, endDate != null ? sDateFormat.parse(endDate) : null)
                             .eq(AcclogView::getEventType, "正常验证开门")
                             .isNotNull(AcclogView::getName));
             WriteExcel.writeExcel(acclogViewService.removeRepeatAcc(list), dic, out);
@@ -194,7 +195,7 @@ public class DataController {
             OutputStream out = resp.getOutputStream();
             resp.setContentType("application/vnd.ms-excel;charset=utf-8");
             resp.setHeader("Content-disposition", "attachment; filename=" + processFileName(req, "门禁报表2—" + startDate + "_" + endDate + ".xls"));
-            List<Map<String, Object>> list = acclogViewService.selectMap(startDate,null);
+            List<Map<String, Object>> list = acclogViewService.selectMap(startDate,endDate);
             WriteExcel.writeExcel(list, dic, out);
         } catch (Exception e) {
             e.printStackTrace();

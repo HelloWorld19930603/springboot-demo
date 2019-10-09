@@ -60,11 +60,12 @@ public class AcclogViewImpl extends ServiceImpl<AcclogViewMapper, AcclogView> im
                 if(map.get(map1.get("pin")) != null){
                     Date date1  = sDateFormat.parse(map.get(map1.get("pin")).get("time").toString());
                     Date date2 = sDateFormat.parse(map1.get("time").toString());
+                    map.put(map1.get("pin"),map1);
                     if(date2.getTime() - date1.getTime() < 60000){
                         continue;
-                    }else{
-                        map.put(map1.get("pin"),map1);
                     }
+                }else{
+                    map.put(map1.get("pin"),map1);
                 }
                 result.add(map1);
             }

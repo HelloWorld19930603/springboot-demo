@@ -204,26 +204,26 @@
                 <li class="active"> 访客查询</li>
             </ul>
             <div class="mt40">
-                <div class="c-datepicker-date-editor c-datepicker-single-editor J-datepicker-day mt10">
+                <div class="c-datepicker-date-editor J-datepicker-day mt10">
                     <i class="c-datepicker-range__icon kxiconfont icon-clock"></i>
-                    <input type="text" autocomplete="off" name="" placeholder="选择日期" class=" c-datepicker-data-input only-date" value="">
+                    <input type="text" autocomplete="off" name="" placeholder="选择日期" class="c-datepicker-data-input only-date" value="">
                 </div>
             </div>
 
             <div class="btn-group" style="float:right;">
-                <button id="share1" class="btn btn-primary J-datepicker-day J-datepickerTime-single"
+                <button id="share1" class="btn btn-primary"
                         style="font-size: 12px;padding: 4px 4px;margin-top: 3px;">
                     导出访客报表 <i class="fa fa-share-square-o"></i>
                 </button>
-                <button id="share2" class="btn btn-info J-datepicker-day J-datepickerTime-single"
+                <button id="share2" class="btn btn-info"
                         style="font-size: 12px;padding: 4px 4px;margin-top: 3px;">
                     导出门禁报表1 <i class="fa fa-share-square-o"></i>
                 </button>
-                <button id="share3" class="btn btn-file J-datepicker-day J-datepickerTime-single"
+                <button id="share3" class="btn btn-file"
                         style="font-size: 12px;padding: 4px 4px;margin-top: 3px;">
                     导出门禁报表2 <i class="fa fa-share-square-o"></i>
                 </button>
-<%--                <button id="share4" class="btn btn-block J-datepicker-day J-datepickerTime-single"
+<%--                <button id="share4" class="btn btn-block"
                         style="font-size: 12px;padding: 4px 4px;margin-top: 3px;">
                     导出门禁报表3 <i class="fa fa-share-square-o"></i>
                 </button>--%>
@@ -468,7 +468,7 @@
         var time = current.getHours() * 3600000 + current.getMinutes() * 60000 + current.getSeconds() * 1000;
         var start = current.getTime() - time + 2 * 3600000;
         $.ajax({
-            url: "/count?startTime=" + dateFtt("yyyy-MM-dd hh:mm:ss", new Date(start)),
+            url: "/count?startTime=" + dateFtt("yyyy-MM-dd 02:00:00", new Date(start)),
             type: "get",
             success: function (data) {
                 //num1 内部员工
@@ -597,7 +597,7 @@
                     start = current.getTime() - time + 2 * 3600000;
                     end = current.getTime() - time + 26 * 3600000;
                 }
-                window.location.href = "/exportAcc?startDate=" + dateFtt("yyyy-MM-dd hh:mm:ss", new Date(start)) + "&endDate=" + dateFtt("yyyy-MM-dd hh:mm:ss", new Date(end)) + "&type=" + type;
+                window.location.href = "/exportAcc?startDate=" + dateFtt("yyyy-MM-dd 02:00:00", new Date(start)) + "&endDate=" + dateFtt("yyyy-MM-dd 02:00:00", new Date(end)) + "&type=" + type;
             }
         })
     }
@@ -630,7 +630,7 @@
                     start = current.getTime() - time + 2 * 3600000;
                     end = current.getTime() - time + 26 * 3600000;
                 }
-                window.location.href = "/exportAcc2?startDate=" + dateFtt("yyyy-MM-dd hh:mm:ss", new Date(start)) + "&endDate=" + dateFtt("yyyy-MM-dd hh:mm:ss", new Date(end)) + "&type=" + type;
+                window.location.href = "/exportAcc2?startDate=" + dateFtt("yyyy-MM-dd 02:00:00", new Date(start)) + "&endDate=" + dateFtt("yyyy-MM-dd 02:00:00", new Date(end)) + "&type=" + type;
             }
         })
     }
@@ -655,7 +655,7 @@
                 var time = current.getHours() * 3600000 + current.getMinutes() * 60000 + current.getSeconds() * 1000;
                 var start = current.getTime() - time + 2 * 3600000;
                 var end = current.getTime() - time + 26 * 3600000;
-                window.location.href = "/exportAcc?startDate=" + dateFtt("yyyy-MM-dd hh:mm:ss", new Date(start)) + "&endDate=" + dateFtt("yyyy-MM-dd hh:mm:ss", new Date(end)) + "&type=" + type;
+                window.location.href = "/exportAcc?startDate=" + dateFtt("yyyy-MM-dd 02:00:00", new Date(start)) + "&endDate=" + dateFtt("yyyy-MM-dd 02:00:00", new Date(end)) + "&type=" + type;
             }
         })
     }
@@ -675,8 +675,8 @@
             // 默认input显示当前月,自己获取后填充
             activeMonthRange: function () {
                 return {
-                    begin: moment().set({'date': 1, 'hour': 0, 'minute': 0, 'second': 0}).format('YYYY-MM-DD HH:mm:ss'),
-                    end: moment().set({'hour': 23, 'minute': 59, 'second': 59}).format('YYYY-MM-DD HH:mm:ss')
+                    begin: moment().set({'date': 1, 'hour': 0, 'minute': 0, 'second': 0}).format('YYYY-MM-DD 02:00:00'),
+                    end: moment().set({'hour': 23, 'minute': 59, 'second': 59}).format('YYYY-MM-DD 02:00:00')
                 }
             },
             shortcutMonth: function () {
@@ -723,7 +723,7 @@
             }, {
                 name: '昨天',
                 day: '-1',
-                time: '00:00:00'
+                time: '02:00:00'
             }, {
                 name: '一周前',
                 day: '-7'
@@ -733,7 +733,7 @@
         //年月日单个
         $('.J-datepicker-day').datePicker({
             hasShortcut: true,
-            format: 'YYYY-MM-DD HH:mm:ss',
+            format: 'YYYY-MM-DD',
             shortcutOptions: [{
                 name: '今天',
                 day: '0'

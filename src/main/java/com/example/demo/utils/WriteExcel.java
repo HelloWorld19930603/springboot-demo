@@ -105,7 +105,7 @@ public class WriteExcel {
 
     public static void readExcel() throws Exception {
         //1.读取Excel文档对象
-        HSSFWorkbook hssfWorkbook = new HSSFWorkbook(new FileInputStream("D:\\demo.xls"));
+        HSSFWorkbook hssfWorkbook = new HSSFWorkbook(new FileInputStream("D:\\门禁报表1—2019-09-29.xls"));
         //2.获取要解析的表格（第一个表格）
         HSSFSheet sheet = hssfWorkbook.getSheetAt(0);
         //获得最后一行的行号
@@ -121,12 +121,14 @@ public class WriteExcel {
             String stringCellValue3 = row.getCell(6).getStringCellValue();
             String stringCellValue4 = row.getCell(7).getStringCellValue();
             Map map = new HashMap();
+            map.put("name",stringCellValue0);
             map.put("pin",stringCellValue2);
             map.put("time",stringCellValue4);
             list.add(map);
            // System.out.println(stringCellValue0+"--"+stringCellValue1+"--"+stringCellValue2+"--"+stringCellValue3+"--"+stringCellValue4);
         }
         Map dic = new HashMap();
+        dic.put("name", "人员");
         dic.put("pin", "人员编号");
         dic.put("time", "刷卡时间");
         list = new AcclogViewImpl().removeRepeatAcc(list);
