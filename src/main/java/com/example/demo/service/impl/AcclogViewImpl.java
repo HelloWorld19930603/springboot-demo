@@ -40,8 +40,11 @@ public class AcclogViewImpl extends ServiceImpl<AcclogViewMapper, AcclogView> im
         map.put("startTime",startTime);
         map.put("endTime",endTime);
         if(times !=null && times.size() > 0){
-            String timeStr = StringUtils.join(times.toArray(),",");
-            map.put("times",timeStr);
+            String timeStr = "";
+            for(String str : times){
+                timeStr += "'" + str+"',";
+            }
+            map.put("times",timeStr.substring(0,timeStr.length() -1));
         }
         return acclogViewMapper.selectMap(map);
     }
