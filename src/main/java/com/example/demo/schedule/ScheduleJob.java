@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -68,7 +69,7 @@ public class ScheduleJob {
 
     //添加定时任务
     @Scheduled(cron = "0 0 2 * * ?")
-    public void configureTasks() throws IOException {
+    public void configureTasks() throws IOException, ParseException {
         System.err.println("执行静态定时任务时间: " + LocalDateTime.now());
         File file = new File("d://报表");
         if (!file.exists()) {
@@ -134,7 +135,14 @@ public class ScheduleJob {
         dic3.put("n", "ID2");
 
         OutputStream out3 = new FileOutputStream("d://报表/门禁报表2_" + startDate2 + "_" + endDate2 + ".xls");
-        List<Map<String, Object>> list3 = acclogViewService.selectMap(startDate, endDate);
+        List<Map<String, Object>> list = acclogViewService
+                .listMaps(new QueryWrapper<AcclogView>().lambda()
+                        .ge(AcclogView::getTime, startDate != null ? sDateFormat.parse(startDate) : null)
+                        .le(AcclogView::getTime, endDate != null ? sDateFormat.parse(endDate) : null)
+                        .eq(AcclogView::getEventType, "正常验证开门")
+                        .isNotNull(AcclogView::getName));
+        List<String> times = acclogViewService.getRepeatAcc(list1);
+        List<Map<String, Object>> list3 = acclogViewService.selectMap(startDate, endDate, times);
         WriteExcel.writeExcel(list3, dic3, out3);
     }
 

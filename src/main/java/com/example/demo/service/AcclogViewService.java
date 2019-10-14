@@ -19,7 +19,9 @@ public interface AcclogViewService extends IService<AcclogView> {
 
     public List<Map<String,Object>> selectAccCount(Map map);
 
-    List<Map<String, Object>> selectMap(String startTime,String endTime);
+    List<Map<String, Object>> selectMap(String startTime, String endTime, List<String> times);
 
     public List<Map<String, Object>> removeRepeatAcc(List<Map<String, Object>> list);
+
+    List<String> getRepeatAcc(List<Map<String, Object>> list);
 }

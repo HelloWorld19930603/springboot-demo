@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -195,8 +196,17 @@ public class DataController {
             OutputStream out = resp.getOutputStream();
             resp.setContentType("application/vnd.ms-excel;charset=utf-8");
             resp.setHeader("Content-disposition", "attachment; filename=" + processFileName(req, "门禁报表2—" + startDate + "_" + endDate + ".xls"));
-            List<Map<String, Object>> list = acclogViewService.selectMap(startDate,endDate);
-            WriteExcel.writeExcel(list, dic, out);
+            SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            List<Map<String, Object>> list1 = acclogViewService
+                    .listMaps(new QueryWrapper<AcclogView>().lambda()
+                            .ge(AcclogView::getTime, startDate != null ? sDateFormat.parse(startDate) : null)
+                            .le(AcclogView::getTime, endDate != null ? sDateFormat.parse(endDate) : null)
+                            .eq(AcclogView::getEventType, "正常验证开门")
+                            .isNotNull(AcclogView::getName));
+            List<String> times = acclogViewService.getRepeatAcc(list1);
+
+            List<Map<String, Object>> list2 = acclogViewService.selectMap(startDate,endDate,times);
+            WriteExcel.writeExcel(list2, dic, out);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -204,7 +214,7 @@ public class DataController {
     }
 
     @RequestMapping("test")
-    public void test() throws IOException {
+    public void test() throws IOException, ParseException {
         System.out.println("test");
         scheduleJob.configureTasks();
     }
