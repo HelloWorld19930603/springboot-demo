@@ -40,9 +40,13 @@ END
 )-count(CASE
 	WHEN reader_name like 'TKO%' THEN 1
 END
-))n from acclog_view  where 1=1  and deptname not in ('省装','试验塔','调试临时卡组', 'Yangjiang Office','test')
+))n from acclog_view  where  deptname not in ('省装','试验塔','调试临时卡组', 'Yangjiang Office','test')
+        and event_type = '正常验证开门'
         <if test="startTime != null and startTime != ''">
             and time &gt; #{startTime}
+        </if>
+        <if test="times != null and times != ''">
+            and time not in  (${times})
         </if>
           GROUP BY pin,deptname having (count(CASE
 	WHEN reader_name like 'TKI%' THEN 1

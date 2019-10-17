@@ -80,9 +80,23 @@ public class DataController {
 
     @RequestMapping("count")
     @ResponseBody
-    public Map count(String startTime) {
+    public Map count(String startTime,String endTime) throws ParseException {
         Map map = new HashMap();
         map.put("startTime", startTime);
+        SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        List<Map<String, Object>> list1 = acclogViewService
+                .listMaps(new QueryWrapper<AcclogView>().lambda()
+                        .ge(AcclogView::getTime, startTime != null ? sDateFormat.parse(startTime) : null)
+                        .eq(AcclogView::getEventType, "正常验证开门")
+                        .isNotNull(AcclogView::getName));
+        List<String> times = acclogViewService.getRepeatAcc(list1);
+        if (times != null && times.size() > 0) {
+            StringBuilder timeStr = new StringBuilder();
+            for (String str : times) {
+                timeStr.append( "'").append(str ).append("',");
+            }
+            map.put("times", timeStr.toString().substring(0, timeStr.length() - 1));
+        }
         List<Map<String, Object>> accMap = acclogViewService.selectAccCount(map);
         List<Map<String, Object>> visitorMap = visitorlogViewService.selectVisitorCount(map);
         map.put("num1", 0);//内部员工
@@ -97,7 +111,7 @@ public class DataController {
                 map.put("num1", (int) map.get("num1") + 1);
             } else if (m1.get("deptname").equals(1) && m1.get("n").equals(1)) {
                 map.put("num7", (int) map.get("num7") + 1);
-            } else if (!m1.get("n").equals(1) || !m1.get("n").equals(0)) {
+            } else if (!m1.get("n").equals(1) && !m1.get("n").equals(0)) {
                 map.put("num3", (int) map.get("num3") + 1);
             }
         }
@@ -214,8 +228,24 @@ public class DataController {
     }
 
     @RequestMapping("test")
-    public void test() throws IOException, ParseException {
+    @ResponseBody
+    public String test(String startDate,String endDate) throws IOException, ParseException {
         System.out.println("test");
-        scheduleJob.configureTasks();
+        //scheduleJob.configureTasks();
+        SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        List<Map<String, Object>> list1 = acclogViewService
+                .listMaps(new QueryWrapper<AcclogView>().lambda()
+                        .ge(AcclogView::getTime, startDate != null ? sDateFormat.parse(startDate) : null)
+                        .le(AcclogView::getTime, endDate != null ? sDateFormat.parse(endDate) : null)
+                        .eq(AcclogView::getEventType, "正常验证开门")
+                        .isNotNull(AcclogView::getName));
+        List<String> times = acclogViewService.getRepeatAcc(list1);
+        StringBuilder timeStr = new StringBuilder();
+        if (times != null && times.size() > 0) {
+            for (String str : times) {
+                timeStr.append( "'").append(str ).append("',");
+            }
+        }
+        return timeStr.toString().substring(0,timeStr.length() - 1);
     }
 }
